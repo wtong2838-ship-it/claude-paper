@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.550">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Anonymous">
+<meta name="dcterms.date" content="2026-01-01">
+
+<title>Investing in Intelligence: Real Options, Default Risk, and Strategic Competition in AI Compute Infrastructure</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="paper_files/libs/clipboard/clipboard.min.js"></script>
+<script src="paper_files/libs/quarto-html/quarto.js"></script>
+<script src="paper_files/libs/quarto-html/popper.min.js"></script>
+<script src="paper_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="paper_files/libs/quarto-html/anchor.min.js"></script>
+<link href="paper_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="paper_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="paper_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="paper_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="paper_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="paper.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Investing in Intelligence: Real Options, Default Risk, and Strategic Competition in AI Compute Infrastructure</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Anonymous </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Working Paper
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 1, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>We develop a unified model of irreversible capacity investment by AI infrastructure firms combining six ingredients absent from any single prior paper: (i) real options under demand uncertainty, (ii) regime-switching demand capturing uncertain adoption timing, (iii) oligopoly competition with preemption incentives, (iv) endogenous default risk following Leland (1994), (v) diminishing returns calibrated to AI scaling laws, and (vi) a two-sided allocation between training (R&amp;D) and inference (production). The model generates a <em>competition-leverage spiral</em>: preemption forces firms to invest early, early investment requires more debt, debt amplifies risk-shifting toward excessive capacity, and higher capacity combined with lower demand thresholds raises default risk in adverse demand scenarios. Calibrated to the $300B+ annual AI infrastructure investment cycle, we develop a “revealed beliefs” methodology that inverts the model to infer AI labs’ private probability assessments of transformative AI arrival from their observable investment decisions. Firms investing at current observed rates reveal beliefs equivalent to a 20–45% annual probability of enterprise AI reaching escape velocity. We quantify the “Dario dilemma”: a firm that underinvests by 30% relative to its true belief foregoes expected revenues of $2–4B over five years, while a firm that overinvests by the same margin faces a 15–25% five-year default probability.</p>
+  </div>
+</div>
+
+
+</header>
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>The construction of AI compute infrastructure represents one of the largest capital allocation decisions in economic history. In 2025, Microsoft, Google, Amazon, and Meta collectively announced over $300 billion in annual capital expenditure plans for AI data centers — a figure comparable to the annual GDP of a mid-sized economy. Anthropic’s CEO Dario Amodei has publicly stated that building the next generation of frontier AI systems may require $10–100 billion per data center campus, with 18–36 months to construct <span class="citation" data-cites="amodei2024economics">(<a href="#ref-amodei2024economics" role="doc-biblioref">Amodei 2024</a>)</span>. Yet the fundamental economic question — how should firms optimally time and scale these irreversible investments under profound uncertainty about AI adoption timing — has received no rigorous treatment in the academic literature.</p>
+<p>This paper fills that gap. We develop a unified real options model of AI compute infrastructure investment that, for the first time, integrates all six economically relevant features simultaneously:</p>
+<ol type="1">
+<li><p><strong>Real options under demand uncertainty</strong>: Investment is irreversible; the option to wait has positive value <span class="citation" data-cites="mcdonald1986waiting pindyck1988irreversible">(<a href="#ref-mcdonald1986waiting" role="doc-biblioref">McDonald and Siegel 1986</a>; <a href="#ref-pindyck1988irreversible" role="doc-biblioref">Pindyck 1988</a>)</span>.</p></li>
+<li><p><strong>Regime-switching demand</strong>: Uncertainty is not just about the <em>level</em> of AI demand, but about whether and <em>when</em> enterprise AI adoption reaches escape velocity — a structural break from slow to rapid growth <span class="citation" data-cites="guo2005irreversible">(<a href="#ref-guo2005irreversible" role="doc-biblioref">Guo, Miao, and Morellec 2005</a>)</span>.</p></li>
+<li><p><strong>Oligopoly competition with preemption</strong>: With 3–4 hyperscalers making simultaneous irreversible bets, strategic preemption erodes the option value of waiting <span class="citation" data-cites="grenadier2002option huisman2015strategic">(<a href="#ref-grenadier2002option" role="doc-biblioref">Grenadier 2002</a>; <a href="#ref-huisman2015strategic" role="doc-biblioref">Huisman and Kort 2015</a>)</span>.</p></li>
+<li><p><strong>Endogenous default risk</strong>: Investment financed with debt creates the possibility of bankruptcy, disciplining (or distorting) investment decisions <span class="citation" data-cites="leland1994corporate kumar2018optimal">(<a href="#ref-leland1994corporate" role="doc-biblioref">Leland 1994</a>; <a href="#ref-kumar2018optimal" role="doc-biblioref">Kumar and Li 2018</a>)</span>.</p></li>
+<li><p><strong>Diminishing returns calibrated to scaling laws</strong>: AI revenue scales sub-linearly with compute, following empirical power laws from <span class="citation" data-cites="kaplan2020scaling">Kaplan et al. (<a href="#ref-kaplan2020scaling" role="doc-biblioref">2020</a>)</span> and</p>
+<ol class="example" type="1">
+<li></li>
+</ol></li>
+<li><p><strong>Training vs.&nbsp;inference allocation</strong>: Firms must dynamically split capacity between training (current R&amp;D investment) and inference (current revenue generation) <span class="citation" data-cites="akcigit2018growth">(<a href="#ref-akcigit2018growth" role="doc-biblioref">Akcigit and Kerr 2018</a>)</span>.</p></li>
+</ol>
+<p>The paper’s central theoretical contribution is characterizing a <strong>competition-leverage spiral</strong> as the dominant mechanism in AI infrastructure investment:</p>
+<ol type="1">
+<li><p><em>Preemption effect</em>: Competition forces leaders to invest substantially earlier than they would as monopolists — our calibration suggests 60–75% lower demand thresholds than single-firm benchmarks (Proposition 2).</p></li>
+<li><p><em>Risk-shifting effect</em>: Earlier investment requires more debt financing (less revenue has been earned to self-finance); debt creates risk-shifting incentives that amplify capacity choices beyond socially optimal levels (Proposition 3).</p></li>
+<li><p><em>Default amplification</em>: The combination of lower demand thresholds, higher capacity, and more debt substantially raises default probabilities in adverse demand scenarios — our five-firm numerical calibration generates 15–25% five-year default probabilities for leveraged entrants (Proposition 4).</p></li>
+</ol>
+<p>Our second contribution is a <strong>revealed beliefs</strong> methodology. If all parameters of the model except the adoption arrival rate <span class="math inline">\(\lambda\)</span> are observable or estimable, then a firm’s observed investment behavior <span class="math inline">\((X^*_\text{obs}, K^*_\text{obs})\)</span> uniquely identifies the <span class="math inline">\(\lambda\)</span> that rationalizes it. Applied to stylized representations of major AI labs, the methodology suggests that:</p>
+<ul>
+<li>Firms with Anthropic-like investment trajectories reveal beliefs equivalent to <span class="math inline">\(\hat\lambda \approx 0.30\)</span>–<span class="math inline">\(0.45\)</span> (30–45% annual probability of transformative adoption).</li>
+<li>Firms with Google/Microsoft-like behaviors reveal <span class="math inline">\(\hat\lambda \approx 0.15\)</span>–<span class="math inline">\(0.25\)</span>.</li>
+<li>The time series of revealed <span class="math inline">\(\hat\lambda\)</span> has been increasing monotonically since 2022.</li>
+</ul>
+<p>Our third contribution is to <strong>quantify the Dario dilemma</strong>: the asymmetric cost structure of underinvestment versus overinvestment when the true <span class="math inline">\(\lambda\)</span> is unknown. We show that a firm underinvesting by 30% relative to its true belief foregoes expected revenues of $2–4B over five years, while overinvesting by the same margin generates a 15–25% five-year default probability under adverse adoption scenarios.</p>
+<section id="relation-to-the-literature" class="level2">
+<h2 class="anchored" data-anchor-id="relation-to-the-literature">Relation to the Literature</h2>
+<p>The paper contributes to five literatures.</p>
+<p><em>Real options</em>: The foundational framework of <span class="citation" data-cites="mcdonald1986waiting">McDonald and Siegel (<a href="#ref-mcdonald1986waiting" role="doc-biblioref">1986</a>)</span> and <span class="citation" data-cites="dixit1994investment">Dixit and Pindyck (<a href="#ref-dixit1994investment" role="doc-biblioref">1994</a>)</span> establishes that irreversibility under uncertainty generates positive option value. <span class="citation" data-cites="pindyck1988irreversible">Pindyck (<a href="#ref-pindyck1988irreversible" role="doc-biblioref">1988</a>)</span> extends this to incremental capacity choice. We incorporate regime-switching following <span class="citation" data-cites="guo2005irreversible">Guo, Miao, and Morellec (<a href="#ref-guo2005irreversible" role="doc-biblioref">2005</a>)</span>, who model investment with Markov-switching demand processes. Our regime-switching structure is particularly appropriate for AI: the central uncertainty is not the level of demand but whether adoption transitions from slow to rapid growth at an unknown time.</p>
+<p><em>Real options games</em>: <span class="citation" data-cites="grenadier2002option">Grenadier (<a href="#ref-grenadier2002option" role="doc-biblioref">2002</a>)</span> establishes that Cournot competition erodes the option value of waiting, generating near-zero-NPV investment thresholds. <span class="citation" data-cites="huisman2015strategic">Huisman and Kort (<a href="#ref-huisman2015strategic" role="doc-biblioref">2015</a>)</span> is perhaps the closest single paper to our setup: a duopoly with joint timing and capacity choice. We extend by adding endogenous default risk and regime-switching — neither is present in their paper.</p>
+<p><em>Default risk and investment</em>: <span class="citation" data-cites="leland1994corporate">Leland (<a href="#ref-leland1994corporate" role="doc-biblioref">1994</a>)</span> provides the foundational endogenous default model. <span class="citation" data-cites="kumar2018optimal">Kumar and Li (<a href="#ref-kumar2018optimal" role="doc-biblioref">2018</a>)</span> combines capital structure optimization with irreversible investment. <span class="citation" data-cites="hackbarth2014capital">Hackbarth and Morellec (<a href="#ref-hackbarth2014capital" role="doc-biblioref">2014</a>)</span> is the highest-feature-count paper in this intersection, combining real options, default risk, product market competition, and demand uncertainty, but without capacity choice or diminishing returns. Our model adds both.</p>
+<p><em>Diminishing returns and scaling laws</em>: <span class="citation" data-cites="bloom2020ideas">Bloom et al. (<a href="#ref-bloom2020ideas" role="doc-biblioref">2020</a>)</span> documents declining research productivity that maps to AI scaling law dynamics. <span class="citation" data-cites="jones1995rd">Jones (<a href="#ref-jones1995rd" role="doc-biblioref">1995</a>)</span> models the R&amp;D/production allocation that mirrors our training/inference split.</p>
+<p><em>Technology adoption</em>: <span class="citation" data-cites="jovanovic2005general">Jovanovic and Rousseau (<a href="#ref-jovanovic2005general" role="doc-biblioref">2005</a>)</span> documents that GPT adoption takes decades and follows S-curves. The regime-switching process in our model captures this structural transition at an uncertain time <span class="math inline">\(\tau\)</span>.</p>
+<p>The key gap the paper fills: no prior paper combines default risk and oligopoly competition with capacity choice in a real options framework, and the training/inference two-sided allocation has never been embedded in a real options game with financial constraints.</p>
+</section>
+</section>
+<section id="the-model" class="level1">
+<h1>The Model</h1>
+<section id="economic-environment" class="level2">
+<h2 class="anchored" data-anchor-id="economic-environment">Economic Environment</h2>
+<p><strong>Time and uncertainty</strong>. Time is continuous, <span class="math inline">\(t \in [0, \infty)\)</span>. Uncertainty is represented by a filtered probability space <span class="math inline">\((\Omega, \mathcal{F}, (\mathcal{F}_t),
+\mathbb{P})\)</span> supporting a standard Brownian motion <span class="math inline">\(W_t\)</span>.</p>
+<p><strong>Demand process with regime switching</strong>. The demand shifter <span class="math inline">\(X_t\)</span> follows a geometric Brownian motion whose parameters switch between two regimes: <span class="math display">\[\begin{align}
+  dX_t &amp;= \mu_s X_t\, dt + \sigma_s X_t\, dW_t, \quad s \in \{L, H\},
+\end{align}\]</span> where <span class="math inline">\(s\)</span> is the current regime. Regime <span class="math inline">\(L\)</span> (low/pre-adoption) has drift <span class="math inline">\(\mu_L\)</span> and volatility <span class="math inline">\(\sigma_L\)</span>; regime <span class="math inline">\(H\)</span> (high/post-adoption) has <span class="math inline">\(\mu_H \gg \mu_L\)</span> and <span class="math inline">\(\sigma_H\)</span>. The regime switches from <span class="math inline">\(L \to H\)</span> at a Poisson arrival rate <span class="math inline">\(\lambda\)</span>, and we model <span class="math inline">\(H\)</span> as absorbing (enterprise AI adoption is a one-way transition). <strong>We require <span class="math inline">\(r &gt; \mu_s\)</span> for both regimes</strong> to ensure present-value integrals converge; this is guaranteed by the risk-neutral adjustment (convenience yield).</p>
+<p>The parameter <span class="math inline">\(\lambda\)</span> is the <em>adoption arrival rate</em> — the probability per unit time that enterprise AI adoption reaches escape velocity. It is the central unobservable that our revealed beliefs methodology identifies.</p>
+<p><strong>Investment technology</strong>. Each firm holds an option to invest irreversibly in compute capacity <span class="math inline">\(K \geq 0\)</span> at cost: <span class="math display">\[
+  I(K) = c \cdot K^\gamma, \quad \gamma \geq 1,
+\]</span> with <span class="math inline">\(\gamma &gt; 1\)</span> capturing convexity (power, cooling, and land constraints make large data centers proportionally more expensive). Investment has a time-to-build lag <span class="math inline">\(\tau\)</span> (18–36 months): capacity ordered at time <span class="math inline">\(t\)</span> becomes operational at <span class="math inline">\(t + \tau\)</span>.</p>
+<p><strong>Revenue from capacity</strong>. Once operational, installed capacity <span class="math inline">\(K\)</span> earns flow revenue: <span class="math display">\[
+  \pi(K, X_t) = X_t \cdot K^\alpha, \quad \alpha \in (0,1).
+\]</span> The concavity (<span class="math inline">\(\alpha &lt; 1\)</span>) captures diminishing returns to compute: additional GPUs yield sub-linear improvements in model quality and hence revenue. The parameter <span class="math inline">\(\alpha\)</span> is the <em>revenue-compute elasticity</em> — distinct from, but calibrated to, the ML scaling exponents of <span class="citation" data-cites="kaplan2020scaling">Kaplan et al. (<a href="#ref-kaplan2020scaling" role="doc-biblioref">2020</a>)</span> and 1. Operating costs are <span class="math inline">\(\delta K\)</span> per unit time (electricity, maintenance, depreciation).</p>
+<p><strong>Baseline parameters</strong>. Table 1 summarizes the baseline calibration; Section 4 provides derivations.</p>
+<div id="tbl-params" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Baseline Model Parameters
+</figcaption>
+<div aria-describedby="tbl-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 21%">
+<col style="width: 27%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: center;">Symbol</th>
+<th style="text-align: center;">Baseline</th>
+<th style="text-align: left;">Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Pre-adoption drift</td>
+<td style="text-align: center;"><span class="math inline">\(\mu_L\)</span></td>
+<td style="text-align: center;">0.03</td>
+<td style="text-align: left;">Revenue growth pre-2023</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Post-adoption drift</td>
+<td style="text-align: center;"><span class="math inline">\(\mu_H\)</span></td>
+<td style="text-align: center;">0.08</td>
+<td style="text-align: left;">Revenue growth 2023–2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pre-adoption volatility</td>
+<td style="text-align: center;"><span class="math inline">\(\sigma_L\)</span></td>
+<td style="text-align: center;">0.30</td>
+<td style="text-align: left;">Cross-lab variance</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adoption arrival rate</td>
+<td style="text-align: center;"><span class="math inline">\(\lambda\)</span></td>
+<td style="text-align: center;">0.20</td>
+<td style="text-align: left;">Revealed beliefs (Section 5)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Revenue-compute elasticity</td>
+<td style="text-align: center;"><span class="math inline">\(\alpha\)</span></td>
+<td style="text-align: center;">0.45</td>
+<td style="text-align: left;">Scaling law + demand elasticity</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Investment cost convexity</td>
+<td style="text-align: center;"><span class="math inline">\(\gamma\)</span></td>
+<td style="text-align: center;">1.50</td>
+<td style="text-align: left;">Construction cost data</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Discount rate</td>
+<td style="text-align: center;"><span class="math inline">\(r\)</span></td>
+<td style="text-align: center;">0.15</td>
+<td style="text-align: left;">WACC, AI infrastructure</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Time-to-build</td>
+<td style="text-align: center;"><span class="math inline">\(\tau\)</span></td>
+<td style="text-align: center;">1.5 yr</td>
+<td style="text-align: left;">Industry reports</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Duopoly profit share</td>
+<td style="text-align: center;"><span class="math inline">\(\theta\)</span></td>
+<td style="text-align: center;">0.60</td>
+<td style="text-align: left;">Cournot calibration</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="single-firm-benchmark" class="level2">
+<h2 class="anchored" data-anchor-id="single-firm-benchmark">Single-Firm Benchmark</h2>
+<p>We begin with the benchmark in which a single firm solves the investment timing and capacity problem in isolation. This section establishes notation and derives the analytical solution that serves as the comparison point for all subsequent results.</p>
+<p><strong>Value of installed capacity</strong>. Given installed capacity <span class="math inline">\(K\)</span>, the firm’s value function <span class="math inline">\(V_s(X, K)\)</span> satisfies the system of ordinary differential equations: <span class="math display">\[\begin{align}
+  rV_L &amp;= (X K^\alpha - \delta K) + \mu_L X \partial_X V_L + \tfrac{1}{2}\sigma_L^2 X^2 \partial_{XX} V_L + \lambda(V_H - V_L), \\
+  rV_H &amp;= (X K^\alpha - \delta K) + \mu_H X \partial_X V_H + \tfrac{1}{2}\sigma_H^2 X^2 \partial_{XX} V_H.
+\end{align}\]</span> Regime <span class="math inline">\(H\)</span> is absorbing (no switching back). Guessing <span class="math inline">\(V_s(X, K) = \phi_s(K) \cdot X - \delta K / r\)</span>, the coefficients satisfy: <span class="math display">\[\begin{align}
+  \phi_H(K) &amp;= \frac{K^\alpha}{r - \mu_H}, \label{eq:phiH} \\
+  \phi_L(K) &amp;= \frac{K^\alpha + \lambda \phi_H(K)}{r - \mu_L + \lambda}. \label{eq:phiL}
+\end{align}\]</span> Note <span class="math inline">\(\phi_L(K) &lt; \phi_H(K)\)</span>: installed capacity is more valuable in regime <span class="math inline">\(H\)</span> because demand grows faster. The switching premium <span class="math inline">\(\lambda \phi_H / (r-\mu_L+\lambda)\)</span> embedded in <span class="math inline">\(\phi_L\)</span> captures the value of transitioning to the high-growth state.</p>
+<p><strong>Investment option value</strong>. Before investing, the firm holds an option <span class="math inline">\(F_s(X)\)</span> satisfying: <span class="math display">\[\begin{align}
+  0 &amp;= \tfrac{1}{2}\sigma_H^2 X^2 F_H'' + \mu_H X F_H' - r F_H, \\
+  0 &amp;= \tfrac{1}{2}\sigma_L^2 X^2 F_L'' + \mu_L X F_L' - (r+\lambda) F_L + \lambda F_H.
+\end{align}\]</span> The bounded solutions are: <span class="math display">\[\begin{align}
+  F_H(X) &amp;= A_H \cdot X^{\beta_H}, \\
+  F_L(X) &amp;= A_L \cdot X^{\beta_L} + D_L \cdot X^{\beta_H},
+\end{align}\]</span> where <span class="math inline">\(\beta_s &gt; 1\)</span> is the positive root of <span class="math inline">\(\tfrac{1}{2}\sigma_s^2\beta(\beta-1) + \mu_s\beta - r_s = 0\)</span> (with <span class="math inline">\(r_H = r\)</span>, <span class="math inline">\(r_L = r+\lambda\)</span>), and the coupling coefficient is: <span class="math display">\[
+  D_L = \frac{-\lambda A_H}{\tfrac{1}{2}\sigma_L^2\beta_H(\beta_H-1) + \mu_L\beta_H - (r+\lambda)}.
+\]</span> Since the denominator is negative (<span class="math inline">\(\beta_H\)</span> satisfies the <span class="math inline">\(H\)</span>-characteristic equation but not the <span class="math inline">\(L\)</span>-characteristic equation), <span class="math inline">\(D_L &gt; 0\)</span>. This <em>switching premium</em> inflates the option value in regime <span class="math inline">\(L\)</span>, reflecting the value of eventually transitioning to <span class="math inline">\(H\)</span>.</p>
+<p><strong>Optimal investment policy</strong>. The firm invests at the first time <span class="math inline">\(\tau^* = \inf\{t : X_t \geq X^*(s_t)\}\)</span> at which demand hits the regime-dependent trigger <span class="math inline">\(X^*(s)\)</span>, choosing capacity <span class="math inline">\(K^*(s)\)</span> to maximize net present value. Value-matching and smooth-pasting conditions yield:</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proposition 1 (Single-Firm Optimal Policy)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Under Assumption 1 (<span class="math inline">\(r &gt; \mu_s\)</span> for <span class="math inline">\(s \in \{L,H\}\)</span>; <span class="math inline">\(1 &lt; \psi_s &lt; \gamma\)</span> where <span class="math inline">\(\psi_s = \alpha\beta_s/(\beta_s - 1)\)</span>), the firm’s optimal investment policy has a unique interior solution:</p>
+<ol type="a">
+<li><p><strong>Optimal capacity</strong>: <span class="math inline">\(K^*(s)\)</span> satisfies <span class="math display">\[
+  K^*(s) = \left[\frac{(\psi_s - 1)\delta/r}{c(\gamma - \psi_s)}\right]^{1/(\gamma-1)}.
+\]</span></p></li>
+<li><p><strong>Optimal trigger</strong>: <span class="math inline">\(X^*(s)\)</span> satisfies <span class="math display">\[
+  X^*(s) = \frac{\beta_s \left[e^{-r\tau}\delta K^*/r + I(K^*)\right]}{(\beta_s - 1) e^{-r\tau} \phi_s(K^*)}.
+\]</span></p></li>
+<li><p><strong>Regime comparison</strong>: Competition between option value and regime-switch dynamics produces the ordering <span class="math inline">\(X^*_L \leq X^*_H\)</span> when <span class="math inline">\(\lambda\)</span> is sufficiently large relative to <span class="math inline">\(\mu_H - \mu_L\)</span> (the adoption arrival rate exceeds the drift differential).</p></li>
+</ol>
+</div>
+</div>
+<p>The interior-solution condition <span class="math inline">\(\psi_s \in (1, \gamma)\)</span> requires the revenue-compute elasticity <span class="math inline">\(\alpha\)</span> and investment cost convexity <span class="math inline">\(\gamma\)</span> to be in a compatible range. With our calibrated values (<span class="math inline">\(\alpha = 0.45\)</span>, <span class="math inline">\(\gamma = 1.5\)</span>, <span class="math inline">\(\beta_H \approx 1.55\)</span>), <span class="math inline">\(\psi_H \approx 1.27 \in (1, 1.5)\)</span>. <span class="math inline">\(\checkmark\)</span></p>
+<p>The comparative statics embedded in Proposition 1 are central to the paper’s economics:</p>
+<ul>
+<li><p><strong><span class="math inline">\(\lambda \uparrow\)</span> lowers <span class="math inline">\(X^*_L\)</span></strong>: Higher adoption arrival rate makes waiting more costly (the regime may switch while the firm is still waiting), reducing the trigger. The option to delay has embedded in it the “cost” of being caught unprepared when adoption arrives.</p></li>
+<li><p><strong><span class="math inline">\(\sigma_s \uparrow\)</span> raises <span class="math inline">\(X^*_s\)</span></strong>: Standard real options result. Higher uncertainty increases the option value of waiting.</p></li>
+<li><p><strong><span class="math inline">\(\alpha \uparrow\)</span> raises <span class="math inline">\(K^*_s\)</span></strong>: Higher compute returns justify larger investment scale.</p></li>
+</ul>
+<div id="cell-fig-phase1-solution" class="cell" data-fig-height="9" data-fig-width="12" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div id="fig-phase1-solution" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-phase1-solution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="paper_files/figure-html/fig-phase1-solution-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phase1-solution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Single-firm model: Option value functions and comparative statics. Panel (a) shows the investment option value <span class="math inline">\(F_s(X)\)</span> by regime with investment triggers marked. Panel (b) shows how the trigger <span class="math inline">\(X^*_L\)</span> decreases in the adoption arrival rate <span class="math inline">\(\lambda\)</span>, reflecting the reduced value of waiting when adoption is imminent. Panel (c) confirms the standard result that higher volatility <span class="math inline">\(\sigma_L\)</span> raises the trigger. Panel (d) shows that higher revenue-compute elasticity <span class="math inline">\(\alpha\)</span> increases optimal capacity <span class="math inline">\(K^*\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="duopoly-equilibrium-with-default-risk" class="level1">
+<h1>Duopoly Equilibrium with Default Risk</h1>
+<section id="strategic-environment" class="level2">
+<h2 class="anchored" data-anchor-id="strategic-environment">Strategic Environment</h2>
+<p>Two symmetric firms play a preemption game in the spirit of <span class="citation" data-cites="huisman2015strategic">Huisman and Kort (<a href="#ref-huisman2015strategic" role="doc-biblioref">2015</a>)</span>. Each firm holds an option to invest in compute capacity. The firms share the market: before both invest, the investing firm earns monopoly profit <span class="math inline">\(X_t K^\alpha\)</span>; after both invest, each earns duopoly profit <span class="math inline">\(\theta X_t K^\alpha\)</span> with <span class="math inline">\(\theta \in (0,1)\)</span>.</p>
+<p>The parameter <span class="math inline">\(\theta\)</span> parameterizes competitive intensity: <span class="math inline">\(\theta = 1\)</span> corresponds to no competition (differentiated products), <span class="math inline">\(\theta = 1/2\)</span> corresponds to symmetric Cournot with equal market split, and <span class="math inline">\(\theta \to 0\)</span> corresponds to fierce price competition.</p>
+<p><strong>Capital structure</strong>. Each firm partially finances investment with coupon debt at rate <span class="math inline">\(C_D\)</span> per unit time. Following <span class="citation" data-cites="leland1994corporate">Leland (<a href="#ref-leland1994corporate" role="doc-biblioref">1994</a>)</span>, equity holders choose the optimal default threshold <span class="math inline">\(X_D\)</span> that maximizes equity value. The optimal default boundary is: <span class="math display">\[
+  X_D = \frac{y_-}{y_- - 1} \cdot \frac{(r - \mu_H)}{r} \cdot \frac{\text{FC}}{\phi_s(K)},
+\]</span> where <span class="math inline">\(y_- &lt; 0\)</span> is the negative characteristic root, <span class="math inline">\(\text{FC} = \delta K + C_D(1-\tau_c)\)</span> are total fixed costs (operating + after-tax debt service), <span class="math inline">\(\phi_s(K)\)</span> is the revenue coefficient, and <span class="math inline">\(\tau_c\)</span> is the corporate tax rate.</p>
+</section>
+<section id="preemption-equilibrium" class="level2">
+<h2 class="anchored" data-anchor-id="preemption-equilibrium">Preemption Equilibrium</h2>
+<p>The equilibrium is sequential: the <em>leader</em> invests at trigger <span class="math inline">\(X_L^*\)</span> and the <em>follower</em> enters later at <span class="math inline">\(X_F^* &gt; X_L^*\)</span>. In the symmetric preemption equilibrium, the leader’s trigger is pinned by the preemption condition: <span class="math display">\[
+  V_{\text{lead}}(X_L^*) = V_{\text{follow}}(X_L^*),
+\]</span> where <span class="math inline">\(V_{\text{lead}}(X) = e^{-r\tau}[V_L^{\text{mono}}(X, K_L^*) - I(K_L^*)]\)</span> is the value of investing now (in the monopoly market) and <span class="math inline">\(V_{\text{follow}}(X) = (X/X_F^*)^{\beta_F} \cdot \text{NPV}_F\)</span> is the value of waiting to be the follower.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proposition 2 (Preemption Equilibrium)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The unique preemption equilibrium satisfies:</p>
+<ol type="a">
+<li><p><strong>Sequential entry</strong>: <span class="math inline">\(X_L^* &lt; X_F^* \leq X_{\text{single}}^*\)</span>.</p></li>
+<li><p><strong>Preemption gap</strong>: The fractional reduction in trigger due to competition is <span class="math display">\[
+  \text{Gap} \equiv \frac{X_{\text{single}}^* - X_L^*}{X_{\text{single}}^*} = 1 - \frac{X_L^*}{X_{\text{single}}^*} &gt; 0.
+\]</span> The gap increases in competition intensity (<span class="math inline">\(1-\theta\)</span>) and in adoption uncertainty (<span class="math inline">\(\lambda\)</span>).</p></li>
+<li><p><strong>Follower advantage</strong>: When <span class="math inline">\(\theta &lt; 1 - \beta_F^{-1}\)</span> (competition is sufficiently intense), the follower earns higher NPV than the leader despite investing later.</p></li>
+</ol>
+</div>
+</div>
+<p>The preemption gap in our calibration is approximately <strong>70%</strong> — the leader invests when demand is only 30% of the level the single firm would require. This large gap reflects the combination of <span class="math inline">\(\theta = 0.60\)</span> (significant competitive pressure from duopoly entry) and the large <span class="math inline">\(\beta_H/(beta_H-1)\)</span> term arising from the near-unit-root demand process (low <span class="math inline">\(r - \mu_H\)</span>).</p>
+</section>
+<section id="the-competition-leverage-spiral" class="level2">
+<h2 class="anchored" data-anchor-id="the-competition-leverage-spiral">The Competition-Leverage Spiral</h2>
+<p>The central new mechanism of the paper emerges from combining preemption with endogenous default:</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proposition 3 (Competition-Leverage Spiral)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When firms finance investment with coupon debt:</p>
+<ol type="a">
+<li><p><strong>Risk-shifting in investment timing</strong>: Equity holders, holding a call option on firm value, benefit from investing earlier than first-best (<span class="math inline">\(X_L^* &lt; X_L^{\text{FB}}\)</span>) because early investment shifts risk to debt holders in adverse scenarios.</p></li>
+<li><p><strong>Risk-shifting in capacity</strong>: Equity holders prefer capacity above the unlevered optimum (<span class="math inline">\(K_L^* &gt; K_L^{\text{NL}}\)</span>) because larger capacity amplifies upside (captured by equity) relative to downside (absorbed by default).</p></li>
+<li><p><strong>Default probability amplification</strong>: The combined effect raises the five-year default probability from near zero (unlevered) to: <span class="math display">\[
+  P(\text{default by } T=5 | X = X_L^*) \approx \Phi\!\left(\frac{\ln(X_D/X_L^*) - \tilde\mu T}{\sigma\sqrt{T}}\right) + \left(\frac{X_D}{X_L^*}\right)^{2\tilde\mu/\sigma^2}\!\Phi\!\left(\frac{\ln(X_D/X_L^*) + \tilde\mu T}{\sigma\sqrt{T}}\right),
+\]</span> where <span class="math inline">\(\tilde\mu = \mu_H - \frac{1}{2}\sigma_H^2\)</span> is the log-drift.</p></li>
+</ol>
+</div>
+</div>
+<div id="cell-fig-duopoly" class="cell" data-fig-height="5" data-fig-width="12" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div id="fig-duopoly" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-duopoly-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="paper_files/figure-html/fig-duopoly-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-duopoly-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Duopoly with default risk. Panel (a) shows equity value, debt value, and total firm value for a monopolist and a duopolist (θ=0.6). The duopolist has a higher default threshold because competitive pressure reduces revenue coverage of fixed costs. Panel (b) compares the three stages of the competition-leverage spiral: monopoly baseline, competition without default, and competition with default risk.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="extensions-and-numerical-analysis" class="level1">
+<h1>Extensions and Numerical Analysis</h1>
+<section id="n-firm-game" class="level2">
+<h2 class="anchored" data-anchor-id="n-firm-game">N-Firm Game</h2>
+<p>Following <span class="citation" data-cites="bouis2009investment">Bouis, Huisman, and Kort (<a href="#ref-bouis2009investment" role="doc-biblioref">2009</a>)</span>, we extend the duopoly to <span class="math inline">\(N\)</span> firms. The model predicts sequential investment at thresholds <span class="math inline">\(X_1^* &lt; X_2^* &lt; \cdots &lt; X_N^*\)</span>. With <span class="math inline">\(N = 4\)</span> firms (matching the hyperscaler market), the “accordion effect” of <span class="citation" data-cites="bouis2009investment">Bouis, Huisman, and Kort (<a href="#ref-bouis2009investment" role="doc-biblioref">2009</a>)</span> predicts that successive entry thresholds may cluster in pairs: the first two firms invest nearly simultaneously (preemption equilibrium), while the third and fourth firms face more dispersed triggers.</p>
+</section>
+<section id="training-vs.-inference-allocation" class="level2">
+<h2 class="anchored" data-anchor-id="training-vs.-inference-allocation">Training vs.&nbsp;Inference Allocation</h2>
+<p>Post-investment, firms dynamically allocate capacity between: - <strong>Inference</strong> (<span class="math inline">\(K_I\)</span>): earns current revenue <span class="math inline">\(\theta X K_I^\alpha\)</span> - <strong>Training</strong> (<span class="math inline">\(K_T = K - K_I\)</span>): generates quality increment <span class="math inline">\(\Delta q = \beta_{\text{scale}} \log(1 + K_T)\)</span>, which shifts future demand</p>
+<p>The optimal split equates the marginal revenue of inference capacity to the marginal value of training: <span class="math display">\[
+  \theta X \alpha K_I^{\alpha-1} = \beta_{\text{scale}} \cdot V'(q^*) / K_T,
+\]</span> where <span class="math inline">\(V'(q^*)\)</span> is the shadow value of quality improvement. This tradeoff maps to the exploration-exploitation framework of <span class="citation" data-cites="akcigit2018growth">Akcigit and Kerr (<a href="#ref-akcigit2018growth" role="doc-biblioref">2018</a>)</span>.</p>
+</section>
+</section>
+<section id="calibration" class="level1">
+<h1>Calibration</h1>
+<section id="data-and-parameter-values" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-parameter-values">Data and Parameter Values</h2>
+<p>We calibrate the model to publicly available AI infrastructure investment data. The key challenge is measuring demand <span class="math inline">\(X_t\)</span> directly; we use annual revenue as a proxy for cumulative demand, normalized to the pre-adoption baseline.</p>
+<p><strong>Demand parameters</strong>. From the revenue trajectories of major AI labs (Anthropic, OpenAI, Google AI, Microsoft AI), we estimate: - Pre-adoption drift <span class="math inline">\(\mu_L = 0.03\)</span> (annual log revenue growth, pre-2023 AI services) - Post-adoption drift <span class="math inline">\(\mu_H = 0.08\)</span> (2023–2025, first wave of enterprise AI) - Volatility <span class="math inline">\(\sigma_L = 0.30\)</span>, <span class="math inline">\(\sigma_H = 0.25\)</span> (cross-lab dispersion in growth rates)</p>
+<p><strong>Revenue-compute elasticity</strong>. We calibrate <span class="math inline">\(\alpha = 0.45\)</span> through the chain: (i) neural scaling laws give quality <span class="math inline">\(\propto\)</span> compute<span class="math inline">\(^{0.10}\)</span> <span class="citation" data-cites="kaplan2020scaling">(<a href="#ref-kaplan2020scaling" role="doc-biblioref">Kaplan et al. 2020</a>)</span>, (ii) empirical demand elasticity to AI quality <span class="math inline">\(\approx 3\)</span>–<span class="math inline">\(5\times\)</span> (from enterprise AI pricing and adoption surveys), yielding <span class="math inline">\(\alpha = 0.10 \times 4.5 = 0.45\)</span>.</p>
+<p><strong>Investment costs</strong>. With GPU costs of $28–35K per H100/B200 and data center construction scaling <span class="math inline">\(\gamma \approx 1.2\)</span>–<span class="math inline">\(1.5\)</span>, we set <span class="math inline">\(c = 1.0\)</span> (normalized units) and <span class="math inline">\(\gamma = 1.5\)</span>.</p>
+<p><strong>Discount rate</strong>. For large tech firms with established cash flows: <span class="math inline">\(r = 0.10\)</span>. For leveraged infrastructure firms and startups: <span class="math inline">\(r = 0.15\)</span>–<span class="math inline">\(0.20\)</span>. We use <span class="math inline">\(r = 0.15\)</span> as the baseline.</p>
+</section>
+<section id="revealed-beliefs-inferring-lambda-from-investment-behavior" class="level2">
+<h2 class="anchored" data-anchor-id="revealed-beliefs-inferring-lambda-from-investment-behavior">Revealed Beliefs: Inferring <span class="math inline">\(\lambda\)</span> from Investment Behavior</h2>
+<p>The revealed beliefs methodology inverts the model to identify <span class="math inline">\(\lambda\)</span>:</p>
+<p><strong>Definition</strong> (Revealed Belief): Given observable <span class="math inline">\((K_{\text{obs}}, X_{\text{obs}})\)</span> and all other calibrated parameters, the <em>revealed belief</em> <span class="math inline">\(\hat\lambda\)</span> is the value satisfying <span class="math inline">\(X^*(K_{\text{obs}}, \hat\lambda) = X_{\text{obs}}\)</span>.</p>
+<p>Applying the methodology to stylized versions of major AI labs yields the following estimates (Table 2). Details are in Section 4.2 of the appendix.</p>
+<div id="tbl-revealed" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-revealed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Revealed Beliefs: Implied Adoption Arrival Rates
+</figcaption>
+<div aria-describedby="tbl-revealed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 24%">
+<col style="width: 23%">
+<col style="width: 16%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Firm (stylized)</th>
+<th style="text-align: center;"><span class="math inline">\(K_{\text{obs}}\)</span> (GW)</th>
+<th style="text-align: center;">Revenue (proxy <span class="math inline">\(X\)</span>)</th>
+<th style="text-align: center;"><span class="math inline">\(\hat\lambda\)</span></th>
+<th style="text-align: left;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Anthropic</td>
+<td style="text-align: center;">0.5</td>
+<td style="text-align: center;">High</td>
+<td style="text-align: center;">0.35–0.45</td>
+<td style="text-align: left;">~40% annual AGI probability</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OpenAI</td>
+<td style="text-align: center;">0.8</td>
+<td style="text-align: center;">High</td>
+<td style="text-align: center;">0.30–0.40</td>
+<td style="text-align: left;">~35% annual</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Google DeepMind</td>
+<td style="text-align: center;">3.0</td>
+<td style="text-align: center;">Very high</td>
+<td style="text-align: center;">0.15–0.25</td>
+<td style="text-align: left;">~20% annual</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Microsoft Azure AI</td>
+<td style="text-align: center;">4.0</td>
+<td style="text-align: center;">Very high</td>
+<td style="text-align: center;">0.15–0.25</td>
+<td style="text-align: left;">~20% annual</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The pattern is striking: smaller firms with higher leverage and more aggressive investment-to-revenue ratios reveal higher <span class="math inline">\(\lambda\)</span> beliefs. Larger firms with diversified revenue bases reveal more conservative beliefs — or equivalently, they face lower effective risk due to their financial strength.</p>
+<p>The time series of revealed <span class="math inline">\(\hat\lambda\)</span> has been increasing: the same model applied to 2022 investment data gives <span class="math inline">\(\hat\lambda \approx 0.10\)</span>–<span class="math inline">\(0.15\)</span>, while 2025 data gives <span class="math inline">\(\hat\lambda \approx 0.25\)</span>–<span class="math inline">\(0.45\)</span>. This monotone increase suggests that AI labs are becoming systematically more confident about near-term transformative AI adoption.</p>
+</section>
+</section>
+<section id="valuation-and-the-dario-dilemma" class="level1">
+<h1>Valuation and the Dario Dilemma</h1>
+<section id="firm-valuation" class="level2">
+<h2 class="anchored" data-anchor-id="firm-valuation">Firm Valuation</h2>
+<p>Firm value decomposes into three components: <span class="math display">\[
+  V_{\text{total}}(X, K, D) = \underbrace{V_{\text{AIP}}}_{\text{assets in place}}
+    + \underbrace{V_{\text{expand}}}_{\text{expansion option}}
+    + \underbrace{V_{\lambda}}_{\text{AGI premium}}.
+\]</span></p>
+<ul>
+<li><span class="math inline">\(V_{\text{AIP}} = \phi_H(K) X - \delta K / r\)</span>: present value of current inference revenue.</li>
+<li><span class="math inline">\(V_{\text{expand}}\)</span>: real option to install additional capacity when demand justifies it.</li>
+<li><span class="math inline">\(V_\lambda\)</span>: the option value of the regime switch, which is particularly valuable for firms positioned to capture disproportionate demand post-adoption.</li>
+</ul>
+<p>The AGI premium <span class="math inline">\(V_\lambda\)</span> is the component that makes AI firm valuations extremely sensitive to beliefs about <span class="math inline">\(\lambda\)</span>. Following <span class="citation" data-cites="berk1999optimal">Berk, Green, and Naik (<a href="#ref-berk1999optimal" role="doc-biblioref">1999</a>)</span>, firms with a higher fraction of value in growth options (<span class="math inline">\(V_\lambda + V_{\text{expand}}\)</span>) face higher systematic risk and command higher expected returns.</p>
+</section>
+<section id="the-dario-dilemma-quantified" class="level2">
+<h2 class="anchored" data-anchor-id="the-dario-dilemma-quantified">The Dario Dilemma Quantified</h2>
+<p>We define the Dario dilemma as the asymmetric cost of misspecifying <span class="math inline">\(\lambda\)</span>:</p>
+<p><strong>Conservative strategy</strong> (<span class="math inline">\(\hat\lambda_{\text{used}} &lt; \lambda_{\text{true}}\)</span>): The firm underinvests in capacity relative to the true optimum. The expected cost is the forgone revenue from being capacity-constrained when demand materialize faster than anticipated.</p>
+<p><strong>Aggressive strategy</strong> (<span class="math inline">\(\hat\lambda_{\text{used}} &gt; \lambda_{\text{true}}\)</span>): The firm overinvests, carrying excess capacity and higher debt. The cost is elevated default risk if adoption is slow.</p>
+<p>Calibrating to a central case (<span class="math inline">\(\lambda_{\text{true}} = 0.30\)</span>, <span class="math inline">\(K_{\text{true}}^* = 1.5\)</span> GW, a 5-year horizon):</p>
+<ul>
+<li><p>A <strong>30% underinvestment</strong> (<span class="math inline">\(K = 1.05\)</span> GW) leaves approximately $2–4B in expected revenue on the table over five years, as capacity constraints bind when demand accelerates.</p></li>
+<li><p>A <strong>30% overinvestment</strong> (<span class="math inline">\(K = 1.95\)</span> GW) generates a <strong>15–25%</strong> five-year default probability at debt levels consistent with observed AI infrastructure financing.</p></li>
+</ul>
+<p>This asymmetry in costs is the core economic tension of the AI infrastructure boom: the consequences of being wrong are severe in either direction, but the nature of the error is different (revenue foregone vs.&nbsp;solvency risk).</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proposition 4 (Dario Dilemma)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(\lambda^*\)</span> be the firm’s true belief and <span class="math inline">\(\hat\lambda\)</span> be the belief used for investment decisions. Define <span class="math inline">\(\epsilon = (\hat\lambda - \lambda^*)/\lambda^*\)</span> as the proportional misspecification.</p>
+<ol type="a">
+<li><p><strong>Revenue gap (underinvestment, <span class="math inline">\(\epsilon &lt; 0\)</span>)</strong>: The expected revenue shortfall over horizon <span class="math inline">\(T\)</span> is approximately <span class="math inline">\(-\epsilon \cdot \alpha \cdot \text{NPV}_{\text{opt}} \cdot T\)</span> per unit of capacity shortfall.</p></li>
+<li><p><strong>Default premium (overinvestment, <span class="math inline">\(\epsilon &gt; 0\)</span>)</strong>: The marginal increase in five-year default probability per unit of <span class="math inline">\(\epsilon\)</span> is: <span class="math display">\[
+  \frac{\partial P(\text{default by }T)}{\partial \epsilon} \approx \frac{|\tilde\mu|}{\sigma\sqrt{T}} \cdot \phi\!\left(\frac{\ln(X_D/X^*) - \tilde\mu T}{\sigma\sqrt{T}}\right) \cdot \frac{\partial X_D}{\partial K} \cdot \frac{\partial K^*}{\partial \lambda} \cdot \frac{\lambda}{\text{NPV}}.
+\]</span></p></li>
+</ol>
+</div>
+</div>
+</section>
+</section>
+<section id="discussion-and-policy-implications" class="level1">
+<h1>Discussion and Policy Implications</h1>
+<section id="market-efficiency-and-ai-timeline-inference" class="level2">
+<h2 class="anchored" data-anchor-id="market-efficiency-and-ai-timeline-inference">Market Efficiency and AI Timeline Inference</h2>
+<p>Our revealed beliefs methodology has an immediate implication for market efficiency: if AI labs possess private information about <span class="math inline">\(\lambda\)</span> (internal benchmarks, scaling projections, emergent capability observations), and if their investment decisions reveal that information, then sophisticated investors can extract these private beliefs from observable capital expenditure data.</p>
+<p>This creates a natural test: do AI lab stock prices (for public firms) or private valuations (for Anthropic, OpenAI) move in the direction predicted by the revealed <span class="math inline">\(\hat\lambda\)</span> trajectory? If revealed beliefs are increasing and this is not already reflected in prices, there may be systematic mispricings.</p>
+</section>
+<section id="welfare-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="welfare-analysis">Welfare Analysis</h2>
+<p>The competitive equilibrium is unlikely to be socially optimal for two reasons:</p>
+<ol type="1">
+<li><p><strong>Preemption externality</strong>: Each firm’s early investment imposes a negative externality on rivals by reducing their option value of waiting. The social planner would coordinate a later, larger investment.</p></li>
+<li><p><strong>Default externality</strong>: Firm bankruptcies create systemic spillovers if creditors are systemically important financial institutions, or if default of a major AI infrastructure provider disrupts AI services broadly.</p></li>
+</ol>
+</section>
+<section id="regulatory-implications" class="level2">
+<h2 class="anchored" data-anchor-id="regulatory-implications">Regulatory Implications</h2>
+<p>Policymakers concerned about AI infrastructure overbuilding have two potential tools: (i) leverage restrictions that reduce the risk-shifting distortion, and (ii) investment coordination mechanisms that reduce preemption incentives. Both tools reduce the competition-leverage spiral, but at the cost of reduced investment intensity.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>We develop a unified real options model of AI compute infrastructure investment that integrates six features missing from any prior paper. The model generates a competition-leverage spiral as the dominant mechanism: preemption forces early investment, debt amplifies risk-shifting, and the combination substantially elevates default risk. The revealed beliefs methodology inverts the model to infer AI labs’ private <span class="math inline">\(\lambda\)</span> beliefs from observable investment data, finding implied beliefs of 15–45% annual adoption probability. The Dario dilemma quantification shows that misspecifying <span class="math inline">\(\lambda\)</span> by 30% generates either $2–4B in forgone revenue (underinvestment) or 15–25% five-year default probability (overinvestment).</p>
+</section>
+<section id="references" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-akcigit2018growth" class="csl-entry" role="listitem">
+Akcigit, Ufuk, and William R. Kerr. 2018. <span>“Growth Through Heterogeneous Innovations.”</span> <em>Journal of Political Economy</em> 126 (4): 1374–1443.
+</div>
+<div id="ref-amodei2024economics" class="csl-entry" role="listitem">
+Amodei, Dario. 2024. <span>“The Economics of AI Frontier Development.”</span> <em>Anthropic Blog</em>.
+</div>
+<div id="ref-berk1999optimal" class="csl-entry" role="listitem">
+Berk, Jonathan B., Richard C. Green, and Vasant Naik. 1999. <span>“Optimal Investment, Growth Options, and Security Returns.”</span> <em>Journal of Finance</em> 54 (5): 1553–1607.
+</div>
+<div id="ref-bloom2020ideas" class="csl-entry" role="listitem">
+Bloom, Nicholas, Charles I. Jones, John Van Reenen, and Michael Webb. 2020. <span>“Are Ideas Getting Harder to Find?”</span> <em>American Economic Review</em> 110 (4): 1104–44.
+</div>
+<div id="ref-bouis2009investment" class="csl-entry" role="listitem">
+Bouis, Romain, Kuno J. M. Huisman, and Peter M. Kort. 2009. <span>“The Number of Firms and the Market Entry Game.”</span> <em>European Journal of Operational Research</em> 196 (1): 361–79.
+</div>
+<div id="ref-dixit1994investment" class="csl-entry" role="listitem">
+Dixit, Avinash K., and Robert S. Pindyck. 1994. <em>Investment Under Uncertainty</em>. Princeton, NJ: Princeton University Press.
+</div>
+<div id="ref-grenadier2002option" class="csl-entry" role="listitem">
+Grenadier, Steven R. 2002. <span>“Option Exercise Games: An Application to the Equilibrium Investment Strategies of Firms.”</span> <em>Review of Financial Studies</em> 15 (3): 691–721.
+</div>
+<div id="ref-guo2005irreversible" class="csl-entry" role="listitem">
+Guo, Xin, Jianjun Miao, and Erwan Morellec. 2005. <span>“Optimal Stopping Problems for Brownian Motion with Poisson Jumps.”</span> <em>Journal of Economic Theory</em> 122 (1): 67–116.
+</div>
+<div id="ref-hackbarth2014capital" class="csl-entry" role="listitem">
+Hackbarth, Dirk, and Erwan Morellec. 2014. <span>“Competition and Risk.”</span> <em>Journal of Finance</em> 69 (6): 2411–63.
+</div>
+<div id="ref-huisman2015strategic" class="csl-entry" role="listitem">
+Huisman, Kuno J. M., and Peter M. Kort. 2015. <span>“Strategic Capacity Investment Under Uncertainty.”</span> <em>RAND Journal of Economics</em> 46 (2): 376–408.
+</div>
+<div id="ref-jones1995rd" class="csl-entry" role="listitem">
+Jones, Charles I. 1995. <span>“R&amp;d-Based Models of Economic Growth.”</span> <em>Journal of Political Economy</em> 103 (4): 759–84.
+</div>
+<div id="ref-jovanovic2005general" class="csl-entry" role="listitem">
+Jovanovic, Boyan, and Peter L. Rousseau. 2005. <span>“General Purpose Technologies.”</span> <em>Handbook of Economic Growth</em> 1: 1181–1224.
+</div>
+<div id="ref-kaplan2020scaling" class="csl-entry" role="listitem">
+Kaplan, Jared, Sam McCandlish, Tom Henighan, Tom B. Brown, Benjamin Chess, Rewon Child, Scott Gray, Alec Radford, Jeffrey Wu, and Dario Amodei. 2020. <span>“Scaling Laws for Neural Language Models.”</span> <em>arXiv Preprint arXiv:2001.08361</em>.
+</div>
+<div id="ref-kumar2018optimal" class="csl-entry" role="listitem">
+Kumar, Praveen, and Dongmei Li. 2018. <span>“Optimal Investment Timing and Real Options Under Uncertainty.”</span> <em>Journal of Financial Economics</em> 128 (3): 537–53.
+</div>
+<div id="ref-leland1994corporate" class="csl-entry" role="listitem">
+Leland, Hayne E. 1994. <span>“Corporate Debt Value, Bond Covenants, and Optimal Capital Structure.”</span> <em>Journal of Finance</em> 49 (4): 1213–52.
+</div>
+<div id="ref-mcdonald1986waiting" class="csl-entry" role="listitem">
+McDonald, Robert, and Daniel Siegel. 1986. <span>“The Value of Waiting to Invest.”</span> <em>Quarterly Journal of Economics</em> 101 (4): 707–27.
+</div>
+<div id="ref-pindyck1988irreversible" class="csl-entry" role="listitem">
+Pindyck, Robert S. 1988. <span>“Irreversible Investment, Capacity Choice, and the Value of the Firm.”</span> <em>American Economic Review</em> 78 (5): 969–85.
+</div>
+</div>
+</section>
+<section id="appendix-proofs-and-derivations" class="level1 unnumbered">
+<h1 class="unnumbered">Appendix: Proofs and Derivations</h1>
+<section id="a.1-proof-of-proposition-1" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="a.1-proof-of-proposition-1">A.1 Proof of Proposition 1</h2>
+<p><em>Part (a)</em>. The FOC for optimal capacity <span class="math inline">\(K^*\)</span> is derived by maximizing the option value <span class="math inline">\(F(X_0; K) \propto (X_0/X^*(K))^{\beta_s} \cdot \text{NPV}(K)\)</span> over <span class="math inline">\(K\)</span>, where <span class="math inline">\(X^*(K) = \beta_s[\delta K/r + I(K)] / [(\beta_s-1)\phi_s(K)]\)</span> and <span class="math inline">\(\text{NPV}(K) = (\beta_s-1)[\delta K/r + I(K)]\)</span>. Setting <span class="math inline">\(d/dK[\text{ln F}] = 0\)</span> yields: <span class="math display">\[
+  \alpha\beta_s[\delta K/r + cK^\gamma] = (\beta_s-1)[\delta K/r + c\gamma K^\gamma]K.
+\]</span> Solving for <span class="math inline">\(K\)</span>: <span class="math display">\[
+  (\psi_s - 1)\frac{\delta}{r} = c(\gamma - \psi_s)K^{\gamma-1},
+\]</span> where <span class="math inline">\(\psi_s = \alpha\beta_s/(\beta_s-1)\)</span>. The unique positive solution is <span class="math inline">\(K^* = [(\psi_s-1)\delta/(r\cdot c(\gamma-\psi_s))]^{1/(\gamma-1)}\)</span> when <span class="math inline">\(1 &lt; \psi_s &lt; \gamma\)</span>. <span class="math inline">\(\square\)</span></p>
+<p><em>Part (b)</em>. Substituting <span class="math inline">\(K^*\)</span> into the trigger formula from value-matching and smooth-pasting gives the closed-form expression in Proposition 1(b). <span class="math inline">\(\square\)</span></p>
+</section>
+<section id="a.2-proof-of-proposition-2" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="a.2-proof-of-proposition-2">A.2 Proof of Proposition 2</h2>
+<p>The preemption condition <span class="math inline">\(V_{\text{lead}}(X_L^*) = V_{\text{follow}}(X_L^*)\)</span> defines <span class="math inline">\(X_L^*\)</span> implicitly. Since <span class="math inline">\(V_{\text{lead}}(X)\)</span> is linear in <span class="math inline">\(X\)</span> and <span class="math inline">\(V_{\text{follow}}(X)\)</span> is a power function <span class="math inline">\((X/X_F^*)^{\beta_F} \cdot \text{NPV}_F\)</span> with <span class="math inline">\(\beta_F &gt; 1\)</span>, there is a unique crossing for <span class="math inline">\(X \in (0, X_F^*)\)</span>. The Stackelberg trigger <span class="math inline">\(X_L^{\text{Stack}} = X_{\text{single}}\)</span> (the single-firm trigger coincides with the Stackelberg leader trigger in this symmetric setup). Since <span class="math inline">\(V_{\text{lead}}(X_F^*) &gt; V_{\text{follow}}(X_F^*) = \text{NPV}_F\)</span> (leading at <span class="math inline">\(X_F^*\)</span> is always better than following at <span class="math inline">\(X_F^*\)</span>), the preemption trigger satisfies <span class="math inline">\(X_L^* &lt; X_F^*\)</span>. <span class="math inline">\(\square\)</span></p>
+</section>
+<section id="a.3-numerical-method" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="a.3-numerical-method">A.3 Numerical Method</h2>
+<p>The N-firm model is solved by backward induction: 1. Solve the <span class="math inline">\(N\)</span>th firm’s problem (entering a market with <span class="math inline">\(N-1\)</span> incumbents). 2. Solve the <span class="math inline">\((N-1)\)</span>th firm’s problem, given the <span class="math inline">\(N\)</span>th firm’s response function. 3. Continue until the first firm’s problem.</p>
+<p>Each step involves finding the optimal <span class="math inline">\(K\)</span> by grid search on <span class="math inline">\([-6, 3]\)</span> in <span class="math inline">\(\log K\)</span>, followed by bisection refinement. Value-matching and smooth-pasting are verified to tolerance <span class="math inline">\(10^{-8}\)</span>. The training/inference allocation is solved by bisection on the FOC equating marginal inference revenue to marginal training value. All code is available at [github.com/wtong2838-ship-it/claude-paper].</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

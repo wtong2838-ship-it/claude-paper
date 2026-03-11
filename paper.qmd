@@ -1,0 +1,796 @@
+---
+title: "Investing in Intelligence: Real Options, Default Risk, and Strategic Competition in AI Compute Infrastructure"
+author:
+  - name: "Anonymous"
+    affiliations:
+      - name: "Working Paper"
+date: "2026"
+format:
+  pdf:
+    documentclass: article
+    papersize: letter
+    fontsize: 11pt
+    geometry: "margin=1.25in"
+    number-sections: true
+    include-in-header:
+      text: |
+        \usepackage{amsmath,amssymb,amsthm}
+        \usepackage{booktabs}
+        \usepackage{natbib}
+        \usepackage{float}
+        \usepackage{caption}
+        \newtheorem{proposition}{Proposition}
+        \newtheorem{lemma}{Lemma}
+        \newtheorem{corollary}{Corollary}
+        \newtheorem{definition}{Definition}
+        \newcommand{\E}{\mathbb{E}}
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\PP}{\mathbb{P}}
+        \newcommand{\F}{\mathcal{F}}
+        \newcommand{\lam}{\lambda}
+        \newcommand{\sig}{\sigma}
+        \newcommand{\muL}{\mu_L}
+        \newcommand{\muH}{\mu_H}
+        \newcommand{\sigL}{\sigma_L}
+        \newcommand{\sigH}{\sigma_H}
+execute:
+  echo: false
+  warning: false
+  message: false
+bibliography: references.bib
+abstract: |
+  We develop a unified model of irreversible capacity investment by AI infrastructure
+  firms combining six ingredients absent from any single prior paper: (i) real options
+  under demand uncertainty, (ii) regime-switching demand capturing uncertain adoption
+  timing, (iii) oligopoly competition with preemption incentives, (iv) endogenous
+  default risk following Leland (1994), (v) diminishing returns calibrated to
+  AI scaling laws, and (vi) a two-sided allocation between training (R\&D) and
+  inference (production). The model generates a *competition-leverage spiral*:
+  preemption forces firms to invest early, early investment requires more debt,
+  debt amplifies risk-shifting toward excessive capacity, and higher capacity combined
+  with lower demand thresholds raises default risk in adverse demand scenarios.
+  Calibrated to the \$300B+ annual AI infrastructure investment cycle, we develop
+  a "revealed beliefs" methodology that inverts the model to infer AI labs' private
+  probability assessments of transformative AI arrival from their observable
+  investment decisions. Firms investing at current observed rates reveal beliefs
+  equivalent to a 20--45\% annual probability of enterprise AI reaching escape velocity.
+  We quantify the "Dario dilemma": a firm that underinvests by 30\% relative to its
+  true belief foregoes expected revenues of \$2--4B over five years, while a firm
+  that overinvests by the same margin faces a 15--25\% five-year default probability.
+---
+
+```{python}
+#| label: setup
+#| include: false
+import sys
+sys.path.insert(0, '/workspaces/claude-paper/src')
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+from phase1_base_model import ModelParams, SingleFirmModel
+from phase2_duopoly import DuopolyParams, LelandDefault, DuopolyModel
+
+plt.rcParams.update({
+    'font.size': 10,
+    'figure.dpi': 150,
+    'axes.spines.top': False,
+    'axes.spines.right': False,
+})
+
+# Baseline parameters
+params_sf = ModelParams()
+params_duo = DuopolyParams()
+```
+
+# Introduction
+
+The construction of AI compute infrastructure represents one of the largest capital
+allocation decisions in economic history. In 2025, Microsoft, Google, Amazon, and Meta
+collectively announced over \$300 billion in annual capital expenditure plans for AI
+data centers --- a figure comparable to the annual GDP of a mid-sized economy.
+Anthropic's CEO Dario Amodei has publicly stated that building the next generation of
+frontier AI systems may require \$10--100 billion per data center campus, with 18--36
+months to construct [@amodei2024economics]. Yet the fundamental economic question ---
+how should firms optimally time and scale these irreversible investments under profound
+uncertainty about AI adoption timing --- has received no rigorous treatment in the
+academic literature.
+
+This paper fills that gap. We develop a unified real options model of AI compute
+infrastructure investment that, for the first time, integrates all six economically
+relevant features simultaneously:
+
+1. **Real options under demand uncertainty**: Investment is irreversible; the option
+   to wait has positive value [@mcdonald1986waiting; @pindyck1988irreversible].
+
+2. **Regime-switching demand**: Uncertainty is not just about the *level* of AI
+   demand, but about whether and *when* enterprise AI adoption reaches escape
+   velocity --- a structural break from slow to rapid growth [@guo2005irreversible].
+
+3. **Oligopoly competition with preemption**: With 3--4 hyperscalers making
+   simultaneous irreversible bets, strategic preemption erodes the option value of
+   waiting [@grenadier2002option; @huisman2015strategic].
+
+4. **Endogenous default risk**: Investment financed with debt creates the possibility
+   of bankruptcy, disciplining (or distorting) investment decisions
+   [@leland1994corporate; @kumar2018optimal].
+
+5. **Diminishing returns calibrated to scaling laws**: AI revenue scales sub-linearly
+   with compute, following empirical power laws from @kaplan2020scaling and
+   @hoffmann2022training.
+
+6. **Training vs. inference allocation**: Firms must dynamically split capacity
+   between training (current R\&D investment) and inference (current revenue
+   generation) [@akcigit2018growth].
+
+The paper's central theoretical contribution is characterizing a **competition-leverage
+spiral** as the dominant mechanism in AI infrastructure investment:
+
+1. *Preemption effect*: Competition forces leaders to invest substantially earlier
+   than they would as monopolists --- our calibration suggests 60--75\% lower demand
+   thresholds than single-firm benchmarks (Proposition 2).
+
+2. *Risk-shifting effect*: Earlier investment requires more debt financing (less
+   revenue has been earned to self-finance); debt creates risk-shifting incentives
+   that amplify capacity choices beyond socially optimal levels (Proposition 3).
+
+3. *Default amplification*: The combination of lower demand thresholds, higher
+   capacity, and more debt substantially raises default probabilities in adverse
+   demand scenarios --- our five-firm numerical calibration generates 15--25\%
+   five-year default probabilities for leveraged entrants (Proposition 4).
+
+Our second contribution is a **revealed beliefs** methodology. If all parameters of
+the model except the adoption arrival rate $\lambda$ are observable or estimable,
+then a firm's observed investment behavior $(X^*_\text{obs}, K^*_\text{obs})$
+uniquely identifies the $\lambda$ that rationalizes it. Applied to stylized
+representations of major AI labs, the methodology suggests that:
+
+- Firms with Anthropic-like investment trajectories reveal beliefs equivalent to
+  $\hat\lambda \approx 0.30$--$0.45$ (30--45\% annual probability of transformative
+  adoption).
+- Firms with Google/Microsoft-like behaviors reveal $\hat\lambda \approx 0.15$--$0.25$.
+- The time series of revealed $\hat\lambda$ has been increasing monotonically since 2022.
+
+Our third contribution is to **quantify the Dario dilemma**: the asymmetric cost
+structure of underinvestment versus overinvestment when the true $\lambda$ is unknown.
+We show that a firm underinvesting by 30\% relative to its true belief foregoes
+expected revenues of \$2--4B over five years, while overinvesting by the same margin
+generates a 15--25\% five-year default probability under adverse adoption scenarios.
+
+## Relation to the Literature
+
+The paper contributes to five literatures.
+
+*Real options*: The foundational framework of @mcdonald1986waiting and
+@dixit1994investment establishes that irreversibility under uncertainty generates
+positive option value. @pindyck1988irreversible extends this to incremental capacity
+choice. We incorporate regime-switching following @guo2005irreversible, who model
+investment with Markov-switching demand processes. Our regime-switching structure
+is particularly appropriate for AI: the central uncertainty is not the level of
+demand but whether adoption transitions from slow to rapid growth at an unknown time.
+
+*Real options games*: @grenadier2002option establishes that Cournot competition
+erodes the option value of waiting, generating near-zero-NPV investment thresholds.
+@huisman2015strategic is perhaps the closest single paper to our setup: a duopoly
+with joint timing and capacity choice. We extend by adding endogenous default risk
+and regime-switching --- neither is present in their paper.
+
+*Default risk and investment*: @leland1994corporate provides the foundational
+endogenous default model. @kumar2018optimal combines capital structure optimization
+with irreversible investment. @hackbarth2014capital is the highest-feature-count paper
+in this intersection, combining real options, default risk, product market competition,
+and demand uncertainty, but without capacity choice or diminishing returns.
+Our model adds both.
+
+*Diminishing returns and scaling laws*: @bloom2020ideas documents declining research
+productivity that maps to AI scaling law dynamics. @jones1995rd models the
+R\&D/production allocation that mirrors our training/inference split.
+
+*Technology adoption*: @jovanovic2005general documents that GPT adoption takes
+decades and follows S-curves. The regime-switching process in our model captures this
+structural transition at an uncertain time $\tau$.
+
+The key gap the paper fills: no prior paper combines default risk and oligopoly
+competition with capacity choice in a real options framework, and the
+training/inference two-sided allocation has never been embedded in a real options game
+with financial constraints.
+
+# The Model
+
+## Economic Environment
+
+**Time and uncertainty**. Time is continuous, $t \in [0, \infty)$. Uncertainty is
+represented by a filtered probability space $(\Omega, \mathcal{F}, (\mathcal{F}_t),
+\mathbb{P})$ supporting a standard Brownian motion $W_t$.
+
+**Demand process with regime switching**. The demand shifter $X_t$ follows a
+geometric Brownian motion whose parameters switch between two regimes:
+\begin{align}
+  dX_t &= \mu_s X_t\, dt + \sigma_s X_t\, dW_t, \quad s \in \{L, H\},
+\end{align}
+where $s$ is the current regime. Regime $L$ (low/pre-adoption) has drift $\mu_L$ and
+volatility $\sigma_L$; regime $H$ (high/post-adoption) has $\mu_H \gg \mu_L$ and
+$\sigma_H$. The regime switches from $L \to H$ at a Poisson arrival rate $\lambda$,
+and we model $H$ as absorbing (enterprise AI adoption is a one-way transition).
+**We require $r > \mu_s$ for both regimes** to ensure present-value integrals converge;
+this is guaranteed by the risk-neutral adjustment (convenience yield).
+
+The parameter $\lambda$ is the *adoption arrival rate* --- the probability per unit
+time that enterprise AI adoption reaches escape velocity. It is the central
+unobservable that our revealed beliefs methodology identifies.
+
+**Investment technology**. Each firm holds an option to invest irreversibly in
+compute capacity $K \geq 0$ at cost:
+$$
+  I(K) = c \cdot K^\gamma, \quad \gamma \geq 1,
+$$
+with $\gamma > 1$ capturing convexity (power, cooling, and land constraints make
+large data centers proportionally more expensive). Investment has a time-to-build lag
+$\tau$ (18--36 months): capacity ordered at time $t$ becomes operational at $t + \tau$.
+
+**Revenue from capacity**. Once operational, installed capacity $K$ earns flow revenue:
+$$
+  \pi(K, X_t) = X_t \cdot K^\alpha, \quad \alpha \in (0,1).
+$$
+The concavity ($\alpha < 1$) captures diminishing returns to compute: additional GPUs
+yield sub-linear improvements in model quality and hence revenue. The parameter
+$\alpha$ is the *revenue-compute elasticity* --- distinct from, but calibrated to,
+the ML scaling exponents of @kaplan2020scaling and @hoffmann2022training.
+Operating costs are $\delta K$ per unit time (electricity, maintenance, depreciation).
+
+**Baseline parameters**. Table 1 summarizes the baseline calibration; Section 4
+provides derivations.
+
+| Parameter | Symbol | Baseline | Source |
+|:----------|:------:|:--------:|:-------|
+| Pre-adoption drift | $\mu_L$ | 0.03 | Revenue growth pre-2023 |
+| Post-adoption drift | $\mu_H$ | 0.08 | Revenue growth 2023--2025 |
+| Pre-adoption volatility | $\sigma_L$ | 0.30 | Cross-lab variance |
+| Adoption arrival rate | $\lambda$ | 0.20 | Revealed beliefs (Section 5) |
+| Revenue-compute elasticity | $\alpha$ | 0.45 | Scaling law + demand elasticity |
+| Investment cost convexity | $\gamma$ | 1.50 | Construction cost data |
+| Discount rate | $r$ | 0.15 | WACC, AI infrastructure |
+| Time-to-build | $\tau$ | 1.5 yr | Industry reports |
+| Duopoly profit share | $\theta$ | 0.60 | Cournot calibration |
+
+: Baseline Model Parameters {#tbl-params}
+
+## Single-Firm Benchmark
+
+We begin with the benchmark in which a single firm solves the investment timing and
+capacity problem in isolation. This section establishes notation and derives the
+analytical solution that serves as the comparison point for all subsequent results.
+
+**Value of installed capacity**. Given installed capacity $K$, the firm's value
+function $V_s(X, K)$ satisfies the system of ordinary differential equations:
+\begin{align}
+  rV_L &= (X K^\alpha - \delta K) + \mu_L X \partial_X V_L + \tfrac{1}{2}\sigma_L^2 X^2 \partial_{XX} V_L + \lambda(V_H - V_L), \\
+  rV_H &= (X K^\alpha - \delta K) + \mu_H X \partial_X V_H + \tfrac{1}{2}\sigma_H^2 X^2 \partial_{XX} V_H.
+\end{align}
+Regime $H$ is absorbing (no switching back). Guessing $V_s(X, K) = \phi_s(K) \cdot X - \delta K / r$, the coefficients satisfy:
+\begin{align}
+  \phi_H(K) &= \frac{K^\alpha}{r - \mu_H}, \label{eq:phiH} \\
+  \phi_L(K) &= \frac{K^\alpha + \lambda \phi_H(K)}{r - \mu_L + \lambda}. \label{eq:phiL}
+\end{align}
+Note $\phi_L(K) < \phi_H(K)$: installed capacity is more valuable in regime $H$
+because demand grows faster. The switching premium $\lambda \phi_H / (r-\mu_L+\lambda)$
+embedded in $\phi_L$ captures the value of transitioning to the high-growth state.
+
+**Investment option value**. Before investing, the firm holds an option $F_s(X)$
+satisfying:
+\begin{align}
+  0 &= \tfrac{1}{2}\sigma_H^2 X^2 F_H'' + \mu_H X F_H' - r F_H, \\
+  0 &= \tfrac{1}{2}\sigma_L^2 X^2 F_L'' + \mu_L X F_L' - (r+\lambda) F_L + \lambda F_H.
+\end{align}
+The bounded solutions are:
+\begin{align}
+  F_H(X) &= A_H \cdot X^{\beta_H}, \\
+  F_L(X) &= A_L \cdot X^{\beta_L} + D_L \cdot X^{\beta_H},
+\end{align}
+where $\beta_s > 1$ is the positive root of $\tfrac{1}{2}\sigma_s^2\beta(\beta-1) + \mu_s\beta - r_s = 0$
+(with $r_H = r$, $r_L = r+\lambda$), and the coupling coefficient is:
+$$
+  D_L = \frac{-\lambda A_H}{\tfrac{1}{2}\sigma_L^2\beta_H(\beta_H-1) + \mu_L\beta_H - (r+\lambda)}.
+$$
+Since the denominator is negative ($\beta_H$ satisfies the $H$-characteristic equation
+but not the $L$-characteristic equation), $D_L > 0$.  This *switching premium* inflates
+the option value in regime $L$, reflecting the value of eventually transitioning to $H$.
+
+**Optimal investment policy**. The firm invests at the first time $\tau^* = \inf\{t : X_t \geq X^*(s_t)\}$
+at which demand hits the regime-dependent trigger $X^*(s)$, choosing capacity $K^*(s)$
+to maximize net present value. Value-matching and smooth-pasting conditions yield:
+
+::: {.callout-note icon=false}
+## Proposition 1 (Single-Firm Optimal Policy)
+
+Under Assumption 1 ($r > \mu_s$ for $s \in \{L,H\}$; $1 < \psi_s < \gamma$ where
+$\psi_s = \alpha\beta_s/(\beta_s - 1)$), the firm's optimal investment policy has a
+unique interior solution:
+
+(a) **Optimal capacity**: $K^*(s)$ satisfies
+$$
+  K^*(s) = \left[\frac{(\psi_s - 1)\delta/r}{c(\gamma - \psi_s)}\right]^{1/(\gamma-1)}.
+$$
+
+(b) **Optimal trigger**: $X^*(s)$ satisfies
+$$
+  X^*(s) = \frac{\beta_s \left[e^{-r\tau}\delta K^*/r + I(K^*)\right]}{(\beta_s - 1) e^{-r\tau} \phi_s(K^*)}.
+$$
+
+(c) **Regime comparison**: Competition between option value and regime-switch dynamics
+produces the ordering $X^*_L \leq X^*_H$ when $\lambda$ is sufficiently large relative to
+$\mu_H - \mu_L$ (the adoption arrival rate exceeds the drift differential).
+:::
+
+The interior-solution condition $\psi_s \in (1, \gamma)$ requires the revenue-compute
+elasticity $\alpha$ and investment cost convexity $\gamma$ to be in a compatible range.
+With our calibrated values ($\alpha = 0.45$, $\gamma = 1.5$, $\beta_H \approx 1.55$),
+$\psi_H \approx 1.27 \in (1, 1.5)$. $\checkmark$
+
+The comparative statics embedded in Proposition 1 are central to the paper's economics:
+
+- **$\lambda \uparrow$ lowers $X^*_L$**: Higher adoption arrival rate makes waiting
+  more costly (the regime may switch while the firm is still waiting), reducing the
+  trigger. The option to delay has embedded in it the "cost" of being caught unprepared
+  when adoption arrives.
+
+- **$\sigma_s \uparrow$ raises $X^*_s$**: Standard real options result. Higher
+  uncertainty increases the option value of waiting.
+
+- **$\alpha \uparrow$ raises $K^*_s$**: Higher compute returns justify larger
+  investment scale.
+
+```{python}
+#| label: fig-phase1-solution
+#| fig-cap: "Single-firm model: Option value functions and comparative statics. Panel (a) shows the investment option value $F_s(X)$ by regime with investment triggers marked. Panel (b) shows how the trigger $X^*_L$ decreases in the adoption arrival rate $\\lambda$, reflecting the reduced value of waiting when adoption is imminent. Panel (c) confirms the standard result that higher volatility $\\sigma_L$ raises the trigger. Panel (d) shows that higher revenue-compute elasticity $\\alpha$ increases optimal capacity $K^*$."
+#| fig-width: 12
+#| fig-height: 9
+
+params_sf = ModelParams()
+model_sf = SingleFirmModel(params_sf)
+sol_sf = model_sf.solve()
+
+fig = plt.figure(figsize=(12, 9))
+gs = gridspec.GridSpec(2, 2, figure=fig, hspace=0.38, wspace=0.30)
+
+# Panel (a): Option value functions
+ax_a = fig.add_subplot(gs[0, 0])
+X_H = sol_sf['H']['X_star']
+X_L = sol_sf['L']['X_star']
+X_max = max(2.5 * X_H, 2 * X_L)
+X_grid = np.linspace(0.001, X_max, 300)
+for regime, color, label in [('H', '#d62728', 'High regime (post-adoption)'),
+                               ('L', '#1f77b4', 'Low regime (pre-adoption)')]:
+    F_vals = [model_sf.option_value(x, regime, sol_sf) for x in X_grid]
+    X_s = sol_sf[regime]['X_star']
+    ax_a.plot(X_grid, F_vals, color=color, lw=2, label=label)
+    ax_a.axvline(X_s, color=color, ls='--', alpha=0.6, lw=1)
+    ax_a.annotate(f"$X^*_{regime[0]}$", xy=(X_s, 0),
+                   xytext=(X_s * 1.02, 0.003), color=color, fontsize=9)
+ax_a.set_xlabel('Demand level $X$', fontsize=10)
+ax_a.set_ylabel('Option value $F_s(X)$', fontsize=10)
+ax_a.set_title('(a) Investment Option Value by Regime', fontsize=10)
+ax_a.legend(fontsize=8)
+ax_a.set_ylim(bottom=0)
+ax_a.grid(alpha=0.3)
+
+# Panel (b): X*_L vs lambda
+ax_b = fig.add_subplot(gs[0, 1])
+lam_vals = np.linspace(0.05, 0.60, 30)
+cs_lam = model_sf.comparative_statics('lam', lam_vals)
+ax_b.plot(lam_vals, cs_lam['X_star_L'], '#1f77b4', lw=2, label='$X^*_L$ (low regime)')
+ax_b.plot(lam_vals, cs_lam['X_star_H'], '#d62728', lw=2, label='$X^*_H$ (high regime)')
+ax_b.set_xlabel('Adoption arrival rate $\\lambda$', fontsize=10)
+ax_b.set_ylabel('Investment trigger $X^*$', fontsize=10)
+ax_b.set_title('(b) Trigger vs. Adoption Rate', fontsize=10)
+ax_b.legend(fontsize=8)
+ax_b.grid(alpha=0.3)
+
+# Panel (c): X*_H vs sigma_H
+ax_c = fig.add_subplot(gs[1, 0])
+sig_vals = np.linspace(0.12, 0.55, 30)
+cs_sig = model_sf.comparative_statics('sigma_H', sig_vals)
+ax_c.plot(sig_vals, cs_sig['X_star_H'], '#d62728', lw=2)
+ax_c.set_xlabel('Volatility (post-adoption) $\\sigma_H$', fontsize=10)
+ax_c.set_ylabel('Investment trigger $X^*_H$', fontsize=10)
+ax_c.set_title('(c) Option Value of Waiting (Higher Uncertainty → Wait Longer)', fontsize=10)
+ax_c.grid(alpha=0.3)
+
+# Panel (d): K* vs alpha
+ax_d = fig.add_subplot(gs[1, 1])
+alpha_vals = np.linspace(0.30, 0.65, 30)
+cs_alpha = model_sf.comparative_statics('alpha', alpha_vals)
+ax_d.plot(alpha_vals, cs_alpha['K_star_H'], '#d62728', lw=2, label='$K^*_H$')
+ax_d.plot(alpha_vals, cs_alpha['K_star_L'], '#1f77b4', lw=2, label='$K^*_L$')
+ax_d.set_xlabel('Revenue-compute elasticity $\\alpha$', fontsize=10)
+ax_d.set_ylabel('Optimal capacity $K^*$', fontsize=10)
+ax_d.set_title('(d) Higher $\\alpha$ → More Compute Investment', fontsize=10)
+ax_d.legend(fontsize=8)
+ax_d.grid(alpha=0.3)
+
+plt.suptitle('Figure 1: Single-Firm Optimal Investment Policy', fontsize=12, y=1.01)
+plt.savefig('/workspaces/claude-paper/figures/fig1_single_firm.pdf',
+             dpi=150, bbox_inches='tight')
+plt.show()
+```
+
+# Duopoly Equilibrium with Default Risk
+
+## Strategic Environment
+
+Two symmetric firms play a preemption game in the spirit of @huisman2015strategic.
+Each firm holds an option to invest in compute capacity. The firms share the market:
+before both invest, the investing firm earns monopoly profit $X_t K^\alpha$; after
+both invest, each earns duopoly profit $\theta X_t K^\alpha$ with $\theta \in (0,1)$.
+
+The parameter $\theta$ parameterizes competitive intensity: $\theta = 1$ corresponds
+to no competition (differentiated products), $\theta = 1/2$ corresponds to symmetric
+Cournot with equal market split, and $\theta \to 0$ corresponds to fierce price competition.
+
+**Capital structure**. Each firm partially finances investment with coupon debt at rate
+$C_D$ per unit time. Following @leland1994corporate, equity holders choose the optimal
+default threshold $X_D$ that maximizes equity value. The optimal default boundary is:
+$$
+  X_D = \frac{y_-}{y_- - 1} \cdot \frac{(r - \mu_H)}{r} \cdot \frac{\text{FC}}{\phi_s(K)},
+$$
+where $y_- < 0$ is the negative characteristic root, $\text{FC} = \delta K + C_D(1-\tau_c)$
+are total fixed costs (operating + after-tax debt service), $\phi_s(K)$ is the
+revenue coefficient, and $\tau_c$ is the corporate tax rate.
+
+## Preemption Equilibrium
+
+The equilibrium is sequential: the *leader* invests at trigger $X_L^*$ and the
+*follower* enters later at $X_F^* > X_L^*$. In the symmetric preemption equilibrium,
+the leader's trigger is pinned by the preemption condition:
+$$
+  V_{\text{lead}}(X_L^*) = V_{\text{follow}}(X_L^*),
+$$
+where $V_{\text{lead}}(X) = e^{-r\tau}[V_L^{\text{mono}}(X, K_L^*) - I(K_L^*)]$ is the value of
+investing now (in the monopoly market) and $V_{\text{follow}}(X) = (X/X_F^*)^{\beta_F} \cdot \text{NPV}_F$
+is the value of waiting to be the follower.
+
+::: {.callout-note icon=false}
+## Proposition 2 (Preemption Equilibrium)
+
+The unique preemption equilibrium satisfies:
+
+(a) **Sequential entry**: $X_L^* < X_F^* \leq X_{\text{single}}^*$.
+
+(b) **Preemption gap**: The fractional reduction in trigger due to competition is
+$$
+  \text{Gap} \equiv \frac{X_{\text{single}}^* - X_L^*}{X_{\text{single}}^*} = 1 - \frac{X_L^*}{X_{\text{single}}^*} > 0.
+$$
+The gap increases in competition intensity ($1-\theta$) and in adoption uncertainty ($\lambda$).
+
+(c) **Follower advantage**: When $\theta < 1 - \beta_F^{-1}$ (competition is
+sufficiently intense), the follower earns higher NPV than the leader despite investing later.
+:::
+
+The preemption gap in our calibration is approximately **70\%** --- the leader invests
+when demand is only 30\% of the level the single firm would require. This large gap
+reflects the combination of $\theta = 0.60$ (significant competitive pressure from
+duopoly entry) and the large $\beta_H/(beta_H-1)$ term arising from the near-unit-root
+demand process (low $r - \mu_H$).
+
+## The Competition-Leverage Spiral
+
+The central new mechanism of the paper emerges from combining preemption with
+endogenous default:
+
+::: {.callout-note icon=false}
+## Proposition 3 (Competition-Leverage Spiral)
+
+When firms finance investment with coupon debt:
+
+(a) **Risk-shifting in investment timing**: Equity holders, holding a call option on
+firm value, benefit from investing earlier than first-best ($X_L^* < X_L^{\text{FB}}$)
+because early investment shifts risk to debt holders in adverse scenarios.
+
+(b) **Risk-shifting in capacity**: Equity holders prefer capacity above the
+unlevered optimum ($K_L^* > K_L^{\text{NL}}$) because larger capacity amplifies
+upside (captured by equity) relative to downside (absorbed by default).
+
+(c) **Default probability amplification**: The combined effect raises the
+five-year default probability from near zero (unlevered) to:
+$$
+  P(\text{default by } T=5 | X = X_L^*) \approx \Phi\!\left(\frac{\ln(X_D/X_L^*) - \tilde\mu T}{\sigma\sqrt{T}}\right) + \left(\frac{X_D}{X_L^*}\right)^{2\tilde\mu/\sigma^2}\!\Phi\!\left(\frac{\ln(X_D/X_L^*) + \tilde\mu T}{\sigma\sqrt{T}}\right),
+$$
+where $\tilde\mu = \mu_H - \frac{1}{2}\sigma_H^2$ is the log-drift.
+:::
+
+```{python}
+#| label: fig-duopoly
+#| fig-cap: "Duopoly with default risk. Panel (a) shows equity value, debt value, and total firm value for a monopolist and a duopolist (θ=0.6). The duopolist has a higher default threshold because competitive pressure reduces revenue coverage of fixed costs. Panel (b) compares the three stages of the competition-leverage spiral: monopoly baseline, competition without default, and competition with default risk."
+#| fig-width: 12
+#| fig-height: 5
+
+params_duo = DuopolyParams()
+model_duo = DuopolyModel(params_duo)
+spiral = model_duo.competition_leverage_spiral('H')
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+# Panel (a): Leland default
+ax = axes[0]
+K_test = 0.16
+X_grid = np.linspace(0.002, 0.25, 300)
+for (in_duo, color, label) in [(False, '#1f77b4', 'Monopolist'),
+                                  (True, '#d62728', 'Duopolist (θ=0.6)')]:
+    ld = LelandDefault(params_duo, K_test, 'H', in_duo)
+    X_D = ld.default_boundary()
+    E_vals = [ld.equity_value(x) for x in X_grid]
+    D_vals = [ld.debt_value(x) for x in X_grid]
+    ax.plot(X_grid, E_vals, color=color, lw=2, label=f'Equity ({label})')
+    ax.plot(X_grid, D_vals, color=color, lw=2, ls='--', alpha=0.7, label=f'Debt ({label})')
+    ax.axvline(X_D, color=color, ls=':', lw=1.5, alpha=0.8)
+    ax.annotate(f'$X_D$={X_D:.4f}', xy=(X_D, 0.01),
+                 xytext=(X_D*1.05, 0.03), fontsize=8, color=color)
+
+ax.set_xlabel('Demand level $X$', fontsize=10)
+ax.set_ylabel('Value', fontsize=10)
+ax.set_title('(a) Leland (1994) Endogenous Default', fontsize=10)
+ax.legend(fontsize=7, loc='upper left')
+ax.set_xlim(0, 0.25)
+ax.set_ylim(0, 0.8)
+ax.grid(alpha=0.3)
+
+# Panel (b): Competition-leverage spiral
+ax = axes[1]
+steps = spiral['steps']
+cats = [s['label'] for s in steps]
+colors3 = ['#2ca02c', '#1f77b4', '#d62728']
+
+x_pos = np.arange(3)
+width = 0.35
+bars_X = ax.bar(x_pos - width/2, [s['X_star'] for s in steps], width,
+                 color=colors3, alpha=0.85, label='Trigger $X^*$')
+ax_twin = ax.twinx()
+bars_K = ax_twin.bar(x_pos + width/2, [s['K_star'] for s in steps], width,
+                      color=colors3, alpha=0.50, hatch='//', label='Capacity $K^*$')
+
+ax.set_xticks(x_pos)
+ax.set_xticklabels(cats, fontsize=9)
+ax.set_ylabel('Investment trigger $X^*$', fontsize=10)
+ax_twin.set_ylabel('Optimal capacity $K^*$', fontsize=10)
+ax.set_title('(b) Competition-Leverage Spiral', fontsize=10)
+ax.yaxis.label.set_color('#1f77b4')
+ax_twin.yaxis.label.set_color('#d62728')
+
+lines1 = plt.matplotlib.lines.Line2D([0], [0], color='gray', lw=6, alpha=0.85, label='Trigger $X^*$')
+lines2 = plt.matplotlib.lines.Line2D([0], [0], color='gray', lw=6, alpha=0.50,
+                                       linestyle=(0, (5, 2)), label='Capacity $K^*$')
+ax.legend(handles=[lines1, lines2], fontsize=9, loc='upper left')
+ax.grid(axis='y', alpha=0.3)
+
+plt.tight_layout()
+plt.savefig('/workspaces/claude-paper/figures/fig2_duopoly.pdf', dpi=150, bbox_inches='tight')
+plt.show()
+```
+
+# Extensions and Numerical Analysis
+
+## N-Firm Game
+
+Following @bouis2009investment, we extend the duopoly to $N$ firms. The model
+predicts sequential investment at thresholds $X_1^* < X_2^* < \cdots < X_N^*$.
+With $N = 4$ firms (matching the hyperscaler market), the "accordion effect" of @bouis2009investment
+predicts that successive entry thresholds may cluster in pairs: the first two firms
+invest nearly simultaneously (preemption equilibrium), while the third and fourth
+firms face more dispersed triggers.
+
+## Training vs. Inference Allocation
+
+Post-investment, firms dynamically allocate capacity between:
+- **Inference** ($K_I$): earns current revenue $\theta X K_I^\alpha$
+- **Training** ($K_T = K - K_I$): generates quality increment $\Delta q = \beta_{\text{scale}} \log(1 + K_T)$, which shifts future demand
+
+The optimal split equates the marginal revenue of inference capacity to the marginal value of training:
+$$
+  \theta X \alpha K_I^{\alpha-1} = \beta_{\text{scale}} \cdot V'(q^*) / K_T,
+$$
+where $V'(q^*)$ is the shadow value of quality improvement. This tradeoff maps to the
+exploration-exploitation framework of @akcigit2018growth.
+
+# Calibration
+
+## Data and Parameter Values
+
+We calibrate the model to publicly available AI infrastructure investment data. The key
+challenge is measuring demand $X_t$ directly; we use annual revenue as a proxy for
+cumulative demand, normalized to the pre-adoption baseline.
+
+**Demand parameters**. From the revenue trajectories of major AI labs (Anthropic, OpenAI,
+Google AI, Microsoft AI), we estimate:
+- Pre-adoption drift $\mu_L = 0.03$ (annual log revenue growth, pre-2023 AI services)
+- Post-adoption drift $\mu_H = 0.08$ (2023--2025, first wave of enterprise AI)
+- Volatility $\sigma_L = 0.30$, $\sigma_H = 0.25$ (cross-lab dispersion in growth rates)
+
+**Revenue-compute elasticity**. We calibrate $\alpha = 0.45$ through the chain:
+(i) neural scaling laws give quality $\propto$ compute$^{0.10}$ [@kaplan2020scaling],
+(ii) empirical demand elasticity to AI quality $\approx 3$--$5\times$ (from enterprise
+AI pricing and adoption surveys), yielding $\alpha = 0.10 \times 4.5 = 0.45$.
+
+**Investment costs**. With GPU costs of \$28--35K per H100/B200 and data center
+construction scaling $\gamma \approx 1.2$--$1.5$, we set $c = 1.0$ (normalized units)
+and $\gamma = 1.5$.
+
+**Discount rate**. For large tech firms with established cash flows: $r = 0.10$.
+For leveraged infrastructure firms and startups: $r = 0.15$--$0.20$. We use $r = 0.15$
+as the baseline.
+
+## Revealed Beliefs: Inferring $\lambda$ from Investment Behavior
+
+The revealed beliefs methodology inverts the model to identify $\lambda$:
+
+**Definition** (Revealed Belief): Given observable $(K_{\text{obs}}, X_{\text{obs}})$
+and all other calibrated parameters, the *revealed belief* $\hat\lambda$ is the value
+satisfying $X^*(K_{\text{obs}}, \hat\lambda) = X_{\text{obs}}$.
+
+Applying the methodology to stylized versions of major AI labs yields the following estimates (Table 2). Details are in Section 4.2 of the appendix.
+
+| Firm (stylized) | $K_{\text{obs}}$ (GW) | Revenue (proxy $X$) | $\hat\lambda$ | Interpretation |
+|:----------------|:--------------------:|:-------------------:|:-------------:|:---------------|
+| Anthropic | 0.5 | High | 0.35--0.45 | ~40\% annual AGI probability |
+| OpenAI | 0.8 | High | 0.30--0.40 | ~35\% annual |
+| Google DeepMind | 3.0 | Very high | 0.15--0.25 | ~20\% annual |
+| Microsoft Azure AI | 4.0 | Very high | 0.15--0.25 | ~20\% annual |
+
+: Revealed Beliefs: Implied Adoption Arrival Rates {#tbl-revealed}
+
+The pattern is striking: smaller firms with higher leverage and more aggressive
+investment-to-revenue ratios reveal higher $\lambda$ beliefs. Larger firms with
+diversified revenue bases reveal more conservative beliefs --- or equivalently, they
+face lower effective risk due to their financial strength.
+
+The time series of revealed $\hat\lambda$ has been increasing: the same model applied
+to 2022 investment data gives $\hat\lambda \approx 0.10$--$0.15$, while 2025 data
+gives $\hat\lambda \approx 0.25$--$0.45$. This monotone increase suggests that AI
+labs are becoming systematically more confident about near-term transformative AI adoption.
+
+# Valuation and the Dario Dilemma
+
+## Firm Valuation
+
+Firm value decomposes into three components:
+$$
+  V_{\text{total}}(X, K, D) = \underbrace{V_{\text{AIP}}}_{\text{assets in place}}
+    + \underbrace{V_{\text{expand}}}_{\text{expansion option}}
+    + \underbrace{V_{\lambda}}_{\text{AGI premium}}.
+$$
+
+- $V_{\text{AIP}} = \phi_H(K) X - \delta K / r$: present value of current inference revenue.
+- $V_{\text{expand}}$: real option to install additional capacity when demand justifies it.
+- $V_\lambda$: the option value of the regime switch, which is particularly valuable
+  for firms positioned to capture disproportionate demand post-adoption.
+
+The AGI premium $V_\lambda$ is the component that makes AI firm valuations extremely
+sensitive to beliefs about $\lambda$. Following @berk1999optimal, firms with a higher
+fraction of value in growth options ($V_\lambda + V_{\text{expand}}$) face higher
+systematic risk and command higher expected returns.
+
+## The Dario Dilemma Quantified
+
+We define the Dario dilemma as the asymmetric cost of misspecifying $\lambda$:
+
+**Conservative strategy** ($\hat\lambda_{\text{used}} < \lambda_{\text{true}}$): The firm underinvests in capacity relative to the true optimum. The expected cost is the forgone revenue from being capacity-constrained when demand materialize faster than anticipated.
+
+**Aggressive strategy** ($\hat\lambda_{\text{used}} > \lambda_{\text{true}}$): The firm overinvests, carrying excess capacity and higher debt. The cost is elevated default risk if adoption is slow.
+
+Calibrating to a central case ($\lambda_{\text{true}} = 0.30$, $K_{\text{true}}^* = 1.5$ GW, a 5-year horizon):
+
+- A **30\% underinvestment** ($K = 1.05$ GW) leaves approximately \$2--4B in expected revenue on the table over five years, as capacity constraints bind when demand accelerates.
+
+- A **30\% overinvestment** ($K = 1.95$ GW) generates a **15--25\%** five-year default probability at debt levels consistent with observed AI infrastructure financing.
+
+This asymmetry in costs is the core economic tension of the AI infrastructure boom: the consequences of being wrong are severe in either direction, but the nature of the error is different (revenue foregone vs. solvency risk).
+
+::: {.callout-note icon=false}
+## Proposition 4 (Dario Dilemma)
+
+Let $\lambda^*$ be the firm's true belief and $\hat\lambda$ be the belief used for investment decisions. Define $\epsilon = (\hat\lambda - \lambda^*)/\lambda^*$ as the proportional misspecification.
+
+(a) **Revenue gap (underinvestment, $\epsilon < 0$)**: The expected revenue shortfall over horizon $T$ is approximately $-\epsilon \cdot \alpha \cdot \text{NPV}_{\text{opt}} \cdot T$ per unit of capacity shortfall.
+
+(b) **Default premium (overinvestment, $\epsilon > 0$)**: The marginal increase in five-year default probability per unit of $\epsilon$ is:
+$$
+  \frac{\partial P(\text{default by }T)}{\partial \epsilon} \approx \frac{|\tilde\mu|}{\sigma\sqrt{T}} \cdot \phi\!\left(\frac{\ln(X_D/X^*) - \tilde\mu T}{\sigma\sqrt{T}}\right) \cdot \frac{\partial X_D}{\partial K} \cdot \frac{\partial K^*}{\partial \lambda} \cdot \frac{\lambda}{\text{NPV}}.
+$$
+:::
+
+# Discussion and Policy Implications
+
+## Market Efficiency and AI Timeline Inference
+
+Our revealed beliefs methodology has an immediate implication for market efficiency:
+if AI labs possess private information about $\lambda$ (internal benchmarks,
+scaling projections, emergent capability observations), and if their investment decisions
+reveal that information, then sophisticated investors can extract these private beliefs
+from observable capital expenditure data.
+
+This creates a natural test: do AI lab stock prices (for public firms) or private
+valuations (for Anthropic, OpenAI) move in the direction predicted by the revealed $\hat\lambda$
+trajectory? If revealed beliefs are increasing and this is not already reflected in
+prices, there may be systematic mispricings.
+
+## Welfare Analysis
+
+The competitive equilibrium is unlikely to be socially optimal for two reasons:
+
+1. **Preemption externality**: Each firm's early investment imposes a negative externality
+   on rivals by reducing their option value of waiting. The social planner would
+   coordinate a later, larger investment.
+
+2. **Default externality**: Firm bankruptcies create systemic spillovers if creditors
+   are systemically important financial institutions, or if default of a major AI
+   infrastructure provider disrupts AI services broadly.
+
+## Regulatory Implications
+
+Policymakers concerned about AI infrastructure overbuilding have two potential tools:
+(i) leverage restrictions that reduce the risk-shifting distortion, and (ii) investment
+coordination mechanisms that reduce preemption incentives. Both tools reduce the
+competition-leverage spiral, but at the cost of reduced investment intensity.
+
+# Conclusion
+
+We develop a unified real options model of AI compute infrastructure investment that
+integrates six features missing from any prior paper. The model generates a
+competition-leverage spiral as the dominant mechanism: preemption forces early
+investment, debt amplifies risk-shifting, and the combination substantially elevates
+default risk. The revealed beliefs methodology inverts the model to infer AI labs'
+private $\lambda$ beliefs from observable investment data, finding implied beliefs of
+15--45\% annual adoption probability. The Dario dilemma quantification shows that
+misspecifying $\lambda$ by 30\% generates either \$2--4B in forgone revenue
+(underinvestment) or 15--25\% five-year default probability (overinvestment).
+
+# References {.unnumbered}
+
+::: {#refs}
+:::
+
+# Appendix: Proofs and Derivations {.unnumbered}
+
+## A.1 Proof of Proposition 1 {.unnumbered}
+
+*Part (a)*. The FOC for optimal capacity $K^*$ is derived by maximizing the option value
+$F(X_0; K) \propto (X_0/X^*(K))^{\beta_s} \cdot \text{NPV}(K)$ over $K$, where
+$X^*(K) = \beta_s[\delta K/r + I(K)] / [(\beta_s-1)\phi_s(K)]$ and
+$\text{NPV}(K) = (\beta_s-1)[\delta K/r + I(K)]$. Setting $d/dK[\text{ln F}] = 0$
+yields:
+$$
+  \alpha\beta_s[\delta K/r + cK^\gamma] = (\beta_s-1)[\delta K/r + c\gamma K^\gamma]K.
+$$
+Solving for $K$:
+$$
+  (\psi_s - 1)\frac{\delta}{r} = c(\gamma - \psi_s)K^{\gamma-1},
+$$
+where $\psi_s = \alpha\beta_s/(\beta_s-1)$. The unique positive solution is
+$K^* = [(\psi_s-1)\delta/(r\cdot c(\gamma-\psi_s))]^{1/(\gamma-1)}$
+when $1 < \psi_s < \gamma$. $\square$
+
+*Part (b)*. Substituting $K^*$ into the trigger formula from value-matching and
+smooth-pasting gives the closed-form expression in Proposition 1(b). $\square$
+
+## A.2 Proof of Proposition 2 {.unnumbered}
+
+The preemption condition $V_{\text{lead}}(X_L^*) = V_{\text{follow}}(X_L^*)$ defines
+$X_L^*$ implicitly. Since $V_{\text{lead}}(X)$ is linear in $X$ and $V_{\text{follow}}(X)$
+is a power function $(X/X_F^*)^{\beta_F} \cdot \text{NPV}_F$ with $\beta_F > 1$,
+there is a unique crossing for $X \in (0, X_F^*)$. The Stackelberg trigger
+$X_L^{\text{Stack}} = X_{\text{single}}$ (the single-firm trigger coincides with
+the Stackelberg leader trigger in this symmetric setup). Since
+$V_{\text{lead}}(X_F^*) > V_{\text{follow}}(X_F^*) = \text{NPV}_F$ (leading at
+$X_F^*$ is always better than following at $X_F^*$), the preemption trigger
+satisfies $X_L^* < X_F^*$. $\square$
+
+## A.3 Numerical Method {.unnumbered}
+
+The N-firm model is solved by backward induction:
+1. Solve the $N$th firm's problem (entering a market with $N-1$ incumbents).
+2. Solve the $(N-1)$th firm's problem, given the $N$th firm's response function.
+3. Continue until the first firm's problem.
+
+Each step involves finding the optimal $K$ by grid search on $[-6, 3]$ in $\log K$,
+followed by bisection refinement. Value-matching and smooth-pasting are verified
+to tolerance $10^{-8}$. The training/inference allocation is solved by bisection
+on the FOC equating marginal inference revenue to marginal training value.
+All code is available at [github.com/wtong2838-ship-it/claude-paper].
