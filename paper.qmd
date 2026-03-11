@@ -16,7 +16,6 @@ format:
       text: |
         \usepackage{amsmath,amssymb,amsthm}
         \usepackage{booktabs}
-        \usepackage{natbib}
         \usepackage{float}
         \usepackage{caption}
         \newtheorem{proposition}{Proposition}
@@ -577,6 +576,10 @@ predicts that successive entry thresholds may cluster in pairs: the first two fi
 invest nearly simultaneously (preemption equilibrium), while the third and fourth
 firms face more dispersed triggers.
 
+@fig-nfirm shows the sequential investment timeline and training/inference split.
+
+![N-firm sequential investment game. Left panel: entry triggers for $N=4$ firms showing the accordion effect — competition compresses the first-mover trigger by 74.8% relative to the single-firm benchmark. Right panel: optimal training/inference split as a function of demand $X$ and competitor quality.](figures/phase3_timeline.png){#fig-nfirm fig-pos="H" width=95%}
+
 ## Training vs. Inference Allocation
 
 Post-investment, firms dynamically allocate capacity between:
@@ -625,7 +628,7 @@ The revealed beliefs methodology inverts the model to identify $\lambda$:
 and all other calibrated parameters, the *revealed belief* $\hat\lambda$ is the value
 satisfying $X^*(K_{\text{obs}}, \hat\lambda) = X_{\text{obs}}$.
 
-Applying the methodology to stylized versions of major AI labs yields the following estimates (Table 2). Details are in Section 4.2 of the appendix.
+@fig-revealed illustrates the inversion graphically, and Table 2 reports the estimates for major AI labs.
 
 | Firm (stylized) | $K_{\text{obs}}$ (GW) | Revenue (proxy $X$) | $\hat\lambda$ | Interpretation |
 |:----------------|:--------------------:|:-------------------:|:-------------:|:---------------|
@@ -635,6 +638,8 @@ Applying the methodology to stylized versions of major AI labs yields the follow
 | Microsoft Azure AI | 4.0 | Very high | 0.15--0.25 | ~20\% annual |
 
 : Revealed Beliefs: Implied Adoption Arrival Rates {#tbl-revealed}
+
+![Revealed beliefs methodology. Left panel: investment trigger $X^*(K,\lambda)$ as a function of $\lambda$ for four capacity levels; horizontal lines mark each firm's observed $X_{\text{obs}}$, and intersections give $\hat\lambda$. Right panel: cross-firm bar chart of implied $\hat\lambda$ with 90% sensitivity intervals (shading reflects $\pm 20\%$ variation in $\alpha$ and $\pm 0.5$yr in $\tau$).](figures/phase4_cross_firm_lambda.png){#fig-revealed fig-pos="H" width=90%}
 
 The pattern is striking: smaller firms with higher leverage and more aggressive
 investment-to-revenue ratios reveal higher $\lambda$ beliefs. Larger firms with
@@ -681,7 +686,9 @@ Calibrating to a central case ($\lambda_{\text{true}} = 0.30$, $K_{\text{true}}^
 
 - A **30\% overinvestment** ($K = 1.95$ GW) generates a **15--25\%** five-year default probability at debt levels consistent with observed AI infrastructure financing.
 
-This asymmetry in costs is the core economic tension of the AI infrastructure boom: the consequences of being wrong are severe in either direction, but the nature of the error is different (revenue foregone vs. solvency risk).
+This asymmetry in costs is the core economic tension of the AI infrastructure boom: the consequences of being wrong are severe in either direction, but the nature of the error is different (revenue foregone vs. solvency risk). @fig-dario illustrates the two sides of this dilemma.
+
+![The Dario Dilemma: asymmetric costs of $\lambda$ misspecification. Left panel: forgone revenue (scaled, 5-year horizon) rises monotonically as the firm underestimates $\lambda$ and invests at a threshold too high relative to the true optimum. Right panel: five-year default probability rises sharply when the firm overestimates $\lambda$ and invests too early (at a low demand level close to the Leland default boundary). The model uses $\lambda_{\text{true}} = 0.30$, coupon $= 0.002$, baseline parameters.](figures/phase5_dario_dilemma.png){#fig-dario fig-pos="H" width=95%}
 
 ::: {.callout-note icon=false}
 ## Proposition 4 (Dario Dilemma)
